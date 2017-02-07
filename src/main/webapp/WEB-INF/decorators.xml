@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/themes/">
+
+	<excludes>
+		<pattern>/resources/**</pattern>
+	</excludes>
+
+	<decorator name="default" page="default.jsp">
+		<pattern>*</pattern>
+	</decorator>
+	
+	<decorator name="publicTheme" page="publicTheme.jsp">
+		<pattern>/</pattern>
+		<pattern>/login</pattern>
+		<pattern>/processLogin</pattern>
+		<pattern>/logout</pattern>
+		<pattern>/register</pattern>
+		<pattern>/company/register</pattern>
+	</decorator>
+	
+	<decorator name="errorTheme" page="errorTheme.jsp">
+		<pattern>/pageNotFound</pattern>
+		<pattern>/error500</pattern>
+		<pattern>/error400</pattern>
+		<pattern>/accessDenied</pattern>
+	</decorator>
+	
+	<decorator name="adminTheme" page="adminTheme.jsp">
+		<pattern>/admin/**</pattern>
+		<pattern>/technician/**</pattern>
+		<pattern>/users</pattern>
+		<pattern>/user/**</pattern>
+		<pattern>/doctors</pattern>
+		<pattern>/doctor/**</pattern>
+		<pattern>/patients</pattern>
+		<pattern>/patient/**</pattern>
+		<pattern>/lab/**</pattern>
+		<pattern>/labs</pattern>
+		<pattern>/departments</pattern>
+		<pattern>/department/**</pattern>
+		<pattern>/clinics</pattern>
+		<pattern>/clinic/**</pattern>
+		<pattern>/tests</pattern>
+		<pattern>/test/**</pattern>
+		<pattern>/company/**</pattern>
+	</decorator>
+</decorators>

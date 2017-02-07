@@ -1,0 +1,36 @@
+.delModalContent {
+	margin-top: 45%;
+}
+
+/* Dash Styles*/
+.button-sub {
+	padding: 5px 30px;
+	margin-left: 30px;
+}
+
+.button-res {
+	padding: 5px 40px;
+	margin-left: 20px;
+}
+
+/* Checking */
+.shape {
+	border-style: solid;
+	border-width: 0 70px 40px 0;
+	float: right;
+	height: 0px;
+	width: 0px;
+	-ms-transform: rotate(360deg); /* IE 9 */
+	-o-transform: rotate(360deg); /* Opera 10.5 */
+	-webkit-transform: rotate(360deg); /* Safari and Chrome */
+	transform: rotate(360deg);
+}
+
+/* DataTable Styles*/
+.column-0 {
+	text-align: justify;
+}
+
+.column-1 {
+	text-align: center;
+}

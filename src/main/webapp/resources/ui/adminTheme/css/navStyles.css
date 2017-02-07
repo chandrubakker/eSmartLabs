@@ -1,0 +1,103 @@
+@CHARSET "ISO-8859-1";
+
+.dash-nav {
+	background-color: #00BFFF;
+    border-color: #00BFFF;
+}
+
+.navbar-brand {
+	width: 250px;
+    border-right: 1px solid #2ECCFA;
+}
+.dash-nav .navbar-brand {
+    color: white;
+    font-family: open-sans-regular;
+    font-size: 18px;
+}
+
+.dash-nav .navbar-brand:HOVER {
+    color: white;
+}
+
+.navStyle>li>a {
+	color: white !important;
+	font-family: open-sans-regular;
+	font-size: 16px;
+}
+
+.navStyle>li>a:HOVER {
+	color: black !important;
+	font-family: open-sans-regular;
+	font-size: 16px;
+}
+
+.navStyle>li:HOVER {
+	background-color: #58FAF4;
+}
+
+.dash-nav .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+    color: white !important;
+    background-color: #0080FF;
+    border-bottom-color: #0080FF;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: #00BFFF;
+}
+
+.dash-nav .navbar-nav>li>.dropdown-menu {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 172px;
+    background-color: #00BFFF;
+}
+
+.dash-nav .navbar-nav>li>.dropdown-menu>li>a {
+    color: white;
+}
+
+.dash-nav .navbar-nav>li>.dropdown-menu>li>a:HOVER {
+    color: black;
+}
+
+.dash-nav .navbar-nav>li>.dropdown-menu>li>a:HOVER {
+    background-color: #00BFFF;
+}
+.dash-nav .navbar-nav>li>.dropdown-menu>.divider {
+    background-color: #2ECCFA;
+}
+
+.dash-nav .navbar-toggle {
+    border-color: white;
+    border-radius: 0px;
+    color: white;
+}
+
+.dash-nav .navbar-toggle:HOVER {
+    background-color: white;
+    border-color: white;
+    border-radius: 0px;
+    color: black;
+}
+
+.dash-nav .navbar-toggle:AFTER {
+    background-color: white;
+    border-color: white;
+    border-radius: 0px;
+    color: black;
+}
+
+.dash-nav .navbar-toggle:ACTIVE {
+    background-color: white;
+    border-color: white;
+    border-radius: 0px;
+    color: black;
+}
+
+.dash-nav .navbar-toggle:FOCUS {
+    background-color: white;
+    border-color: white;
+    border-radius: 0px;
+    color: black;
+}
