@@ -43,5 +43,6 @@
 		<pattern>/tests</pattern>
 		<pattern>/test/**</pattern>
 		<pattern>/company/**</pattern>
+		<pattern>/reports</pattern>
 	</decorator>
 </decorators>

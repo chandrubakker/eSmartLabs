@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -53,6 +54,21 @@ public class ReportDaoImpl implements ReportDao {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Report> reportsByLab(long labId) {
+		
+		String query = "SELECT R FROM Report R WHERE R.patient.id IN ";
+		query = query + "(SELECT DISTINCT TR.patient.id FROM TestResult TR WHERE TR.test.id IN ";
+		query = query + "(SELECT T.id FROM Test T WHERE T.department.id IN ";
+		query = query + "(SELECT D.id FROM Department D WHERE D.lab.id = :labId)))";
+		
+		Query reportsByLab = getEntityManager().createQuery(query);
+		reportsByLab.setParameter("labId", labId);
+		
+		return reportsByLab.getResultList();
 	}
 
 	@Override

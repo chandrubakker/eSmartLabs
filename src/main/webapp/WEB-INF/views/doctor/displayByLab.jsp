@@ -30,7 +30,9 @@
 							<table id="doctors-table" class="stripe hover cell-border">
 								<thead>
 									<tr>
-										<th>Name</th>
+										<th>Doctor Name</th>
+										<th>Clinic Name</th>
+										<!-- <th>Lab Name</th> -->
 										<th>Specialization</th>
 										<th class="no-print">Action</th>
 									</tr>
@@ -63,30 +65,36 @@
 		
 								"aoColumnDefs" : [ {
 									"sClass" : "column-0",
-									"aTargets" : [ 0, 1 ]
+									"aTargets" : []
 								}, {
 									"sClass" : "column-1",
-									"aTargets" : [ 2 ]
+									"aTargets" : [ 3 ]
 								}, {
-									"targets" : [ 2 ],
+									"targets" : [ 3 ],
 									"orderable" : false
 								} ],
 		
 								"columns" : [
 										{
-											"data" : "name"
+											"data" : "doctorName"
 										},
 										{
-											"data" : "specialization"
+											"data" : "clinicName"
+										},
+										/* {
+											"data" : "labName"
+										}, */
+										{
+											"data" : "speciality"
 										},
 										{
 											"mRender" : function(data, type, obj) {
 												var viewUrl = rootPath
-														+ '/doctor/'+obj.id+'/view';
+														+ '/doctor/'+obj.doctorId+'/view';
 												
 												var delUrl = rootPath
 												+ '/doctor/'
-												+ obj.id
+												+ obj.doctorId
 												+ "/delete";
 												
 												return [ '<a class="btn btn-default btn-xs no-print" href='
@@ -98,7 +106,7 @@
 														+ ' <a class="btn btn-danger btn-xs no-print" onclick="deleteConfirm(&quot;'
 														+ delUrl
 														+ '&quot;, &quot;'
-														+ obj.name
+														+ obj.doctorName
 														+ '&quot;, &quot;'
 														+ 'doctorsTable'
 														+ '&quot;);" href='

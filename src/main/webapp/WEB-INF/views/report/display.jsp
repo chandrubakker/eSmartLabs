@@ -3,14 +3,14 @@
 	prefix="security"%>
 <html>
 	<head>
-		<title>eSmartLabs: Clinics</title>
+		<title>eSmartLabs: Reports</title>
 	</head>
 	<body>
 		<div id="page-wrapper">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Clinics</h1>
+						<h1 class="page-header">Reports</h1>
 					</div>
 				</div>
 				<br>
@@ -30,8 +30,10 @@
 							<table id="clinic-table" class="stripe hover cell-border">
 								<thead>
 									<tr>
-										<th>Name</th>
-										<th>Location</th>
+										<th>Reg. Num</th>
+										<th>Patient Name</th>
+										<th>Ref. By Dr.</th>
+										<th>Clinic Name</th>
 										<th>Phone</th>
 										<th class="no-print">Action</th>
 									</tr>
@@ -58,39 +60,45 @@
 								},
 								
 								"ajax" : {
-									"url" : rootPath + "/clinics.json",
+									"url" : rootPath + "/reports.json",
 									"dataSrc" : ""
 								},
 		
 								"aoColumnDefs" : [ {
 									"sClass" : "column-0",
-									"aTargets" : [ 0 ]
+									"aTargets" : []
 								}, {
 									"sClass" : "column-1",
-									"aTargets" : [ 3 ]
+									"aTargets" : [ 5 ]
 								}, {
-									"targets" : [ 2, 3 ],
+									"targets" : [ 4, 5 ],
 									"orderable" : false
 								} ],
 		
 								"columns" : [
 										{
-											"data" : "name"
+											"data" : "regNum"
 										},
 										{
-											"data" : "address.locality"
+											"data" : "patientName"
 										},
 										{
-											"data" : "address.phone"
+											"data" : "refBy"
+										},
+										{
+											"data" : "clinicName"
+										},
+										{
+											"data" : "phone"
 										},
 										{
 											"mRender" : function(data, type, obj) {
 												var viewUrl = rootPath
-														+ '/clinic/'+obj.id+'/view';
+														+ '/patient/'+obj.patientId+'/report/view';
 												
 												var delUrl = rootPath
-												+ '/clinic/'
-												+ obj.id
+												+ '/report/'
+												+ obj.reportId
 												+ "/delete";
 												
 												return [ '<a class="btn btn-default btn-xs no-print" href='
@@ -102,7 +110,7 @@
 														+ ' <a class="btn btn-danger btn-xs no-print" onclick="deleteConfirm(&quot;'
 														+ delUrl
 														+ '&quot;, &quot;'
-														+ obj.name
+														+ obj.patientName
 														+ '&quot;, &quot;'
 														+ 'clinicTable'
 														+ '&quot;);" href='

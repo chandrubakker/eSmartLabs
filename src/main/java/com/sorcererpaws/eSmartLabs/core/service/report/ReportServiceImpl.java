@@ -45,6 +45,11 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
+	public List<Report> reportsByLab(long labId) {
+		return getReportDao().reportsByLab(labId);
+	}
+	
+	@Override
 	public List<Report> allReports() {
 		return getReportDao().allReports();
 	}

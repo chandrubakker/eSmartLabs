@@ -224,7 +224,16 @@
 			});
 			
 			$(window).load(function(){
-		        $('#patient-update-modal-report-reminder').modal('show');
+				var reportId = "${patient.report.id}";
+				console.log("Report ID: " + reportId);
+				if(reportId) {
+					
+					console.log("Report ID: " + reportId);
+					$('#patient-update-modal-report-reminder').modal('show');
+				} else {
+					
+					console.log("Report not generated.");
+				}
 		    });
 		</script>
 	</body>

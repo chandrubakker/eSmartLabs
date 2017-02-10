@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Lab;
+import com.sorcererpaws.eSmartLabs.core.entity.respo.CustomLab;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ErrorMessage;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ValidationResponse;
 import com.sorcererpaws.eSmartLabs.core.service.geo.GeoService;
@@ -37,10 +38,30 @@ public class LabRestClient {
 	private LabValidator labValidator;
 	
 	@RequestMapping(value = "/labs.json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Lab>> allLabs() {
+	public ResponseEntity<List<CustomLab>> allLabs() {
 		
 		LOGGER.info("getting all labs...");
-		return new ResponseEntity<List<Lab>>(getLabService().labs(), HttpStatus.OK);
+		
+		List<CustomLab> customLabs = new ArrayList<CustomLab>();
+		List<Lab> labs = getLabService().labs();
+		
+		for(Lab lab: labs) {
+			
+			CustomLab customLab = new CustomLab();
+			
+			customLab.setLabId(lab.getId());
+			customLab.setClientId(lab.getClient().getId());
+			customLab.setUserId(lab.getClient().getUser().getId());
+			customLab.setAdminName(lab.getClient().getUser().getName());
+			customLab.setAdminEmail(lab.getClient().getUser().getEmail());
+			customLab.setLabName(lab.getName());
+			
+			customLab.setPhone(lab.getAddress() == null ? "Not Found" : lab.getAddress().getPhone());
+			customLab.setLocation(lab.getAddress() == null ? "Not Found" : lab.getAddress().getLocality());
+			
+			customLabs.add(customLab);
+		}
+		return new ResponseEntity<List<CustomLab>>(customLabs, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/lab/{labId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
