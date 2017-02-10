@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sorcererpaws.eSmartLabs.core.entity.clinic.Clinic;
+import com.sorcererpaws.eSmartLabs.core.entity.respo.CustomClinic;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ErrorMessage;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ValidationResponse;
 import com.sorcererpaws.eSmartLabs.core.service.clinic.ClinicService;
@@ -36,17 +37,52 @@ public class ClinicClient {
 	private LabValidator labValidator;
 	
 	@RequestMapping(value = "/clinics.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Clinic>> allClinics() {
+	public ResponseEntity<List<CustomClinic>> allClinics() {
 		
 		LOGGER.info("getting all hospitals...");
-		return new ResponseEntity<List<Clinic>>(getClinicService().clinics(), HttpStatus.OK);
+		
+		List<CustomClinic> customClinics = new ArrayList<CustomClinic>();
+		List<Clinic> clinics = getClinicService().clinics();
+		
+		for(Clinic clinic: clinics) {
+			
+			CustomClinic customClinic = new CustomClinic();
+			customClinic.setClinicId(clinic.getId());
+			customClinic.setLabId(clinic.getLab().getId());
+			customClinic.setClinicName(clinic.getName());
+			customClinic.setLabName(clinic.getLab().getName());
+			
+			customClinic.setPhone(clinic.getAddress() == null ? "Not Found" : clinic.getAddress().getPhone());
+			customClinic.setLocation(clinic.getAddress() == null ? "Not Found" : clinic.getAddress().getLocality());
+			
+			customClinics.add(customClinic);
+		}
+		
+		return new ResponseEntity<List<CustomClinic>>(customClinics, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/lab/{labId}/clinics.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Clinic>> clinicsByLab(@PathVariable("labId")long labId) {
+	public ResponseEntity<List<CustomClinic>> clinicsByLab(@PathVariable("labId")long labId) {
 		
 		LOGGER.info("getting clinics by lab...");
-		return new ResponseEntity<List<Clinic>>(getClinicService().clinicsByLab(labId), HttpStatus.OK);
+		List<CustomClinic> customClinics = new ArrayList<CustomClinic>();
+		List<Clinic> clinics = getClinicService().clinicsByLab(labId);
+		
+		for(Clinic clinic: clinics) {
+			
+			CustomClinic customClinic = new CustomClinic();
+			customClinic.setClinicId(clinic.getId());
+			customClinic.setLabId(clinic.getLab().getId());
+			customClinic.setClinicName(clinic.getName());
+			customClinic.setLabName(clinic.getLab().getName());
+			
+			customClinic.setPhone(clinic.getAddress() == null ? "Not Found" : clinic.getAddress().getPhone());
+			customClinic.setLocation(clinic.getAddress() == null ? "Not Found" : clinic.getAddress().getLocality());
+			
+			customClinics.add(customClinic);
+		}
+		
+		return new ResponseEntity<List<CustomClinic>>(customClinics, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/clinic/{clinicId}", method = RequestMethod.GET)

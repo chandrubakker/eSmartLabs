@@ -31,7 +31,10 @@
 								<thead>
 									<tr>
 										<th>Name</th>
-										<!-- <th>Code</th> -->
+										<th>Owner Name</th>
+										<th>Owner Email</th>
+										<th>Location</th>
+										<th>Phone</th>
 										<th class="no-print">Action</th>
 									</tr>
 								</thead>
@@ -66,27 +69,36 @@
 									"aTargets" : [ 0 ]
 								}, {
 									"sClass" : "column-1",
-									"aTargets" : [ 1 ]
+									"aTargets" : [ 5 ]
 								}, {
-									"targets" : [ 1 ],
+									"targets" : [ 2, 4, 5 ],
 									"orderable" : false
 								} ],
 		
 								"columns" : [
 										{
-											"data" : "name"
+											"data" : "labName"
 										},
-										/* {
-											"data" : "code"
-										}, */
+										{
+											"data" : "adminName"
+										},
+										{
+											"data" : "adminEmail"
+										},
+										{
+											"data" : "location"
+										},
+										{
+											"data" : "phone"
+										},
 										{
 											"mRender" : function(data, type, obj) {
 												var viewUrl = rootPath
-														+ '/lab/'+obj.id+'/profile';
+														+ '/lab/'+obj.labId+'/profile';
 												
 												var delUrl = rootPath
 												+ '/lab/'
-												+ obj.id
+												+ obj.labId
 												+ "/delete";
 												
 												return [ '<a class="btn btn-default btn-xs no-print" href='
@@ -98,7 +110,7 @@
 														+ ' <a class="btn btn-danger btn-xs no-print" onclick="deleteConfirm(&quot;'
 														+ delUrl
 														+ '&quot;, &quot;'
-														+ obj.name
+														+ obj.labName
 														+ '&quot;, &quot;'
 														+ 'labTable'
 														+ '&quot;);" href='

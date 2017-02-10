@@ -32,9 +32,10 @@
 									<tr>
 										<th>Reg. No.</th>
 										<th>Name</th>
-										<th>Gender</th>
 										<th>Ref. Dr.</th>
+										<th>Clinic</th>
 										<th>Phone</th>
+										<th>Report</th>
 										<th class="no-print">Action</th>
 									</tr>
 								</thead>
@@ -69,9 +70,9 @@
 									"aTargets" : [ 0, 1 ]
 								}, {
 									"sClass" : "column-1",
-									"aTargets" : [ 5 ]
+									"aTargets" : [ 6 ]
 								}, {
-									"targets" : [ 4, 5 ],
+									"targets" : [ 4, 6 ],
 									"orderable" : false
 								} ],
 		
@@ -80,25 +81,37 @@
 											"data" : "regNum"
 										},
 										{
-											"data" : "name"
+											"data" : "patientName"
 										},
 										{
-											"data" : "gender"
+											"data" : "refBy"
 										},
 										{
-											"data" : "selfInterest"
+											"data" : "clinicName"
 										},
 										{
 											"data" : "phone"
 										},
 										{
 											"mRender" : function(data, type, obj) {
+												
+												if(obj.reportFound) {
+													
+													return "Generated";
+												} else {
+													
+													return "Not Generated";
+												}
+											}
+										},
+										{
+											"mRender" : function(data, type, obj) {
 												var viewUrl = rootPath
-														+ '/patient/'+obj.id+'/view';
+														+ '/patient/'+obj.patientId+'/view';
 												
 												var delUrl = rootPath
 												+ '/patient/'
-												+ obj.id
+												+ obj.patientId
 												+ "/delete";
 												
 												return [ '<a class="btn btn-default btn-xs no-print" href='
@@ -110,7 +123,7 @@
 														+ ' <a class="btn btn-danger btn-xs no-print" onclick="deleteConfirm(&quot;'
 														+ delUrl
 														+ '&quot;, &quot;'
-														+ obj.name
+														+ obj.patientName
 														+ '&quot;, &quot;'
 														+ 'patientsTable'
 														+ '&quot;);" href='

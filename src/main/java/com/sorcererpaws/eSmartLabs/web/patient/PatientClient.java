@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sorcererpaws.eSmartLabs.core.entity.clinic.Patient;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Report;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Test;
+import com.sorcererpaws.eSmartLabs.core.entity.respo.CustomPatient;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ErrorMessage;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ValidationResponse;
 import com.sorcererpaws.eSmartLabs.core.service.doctor.DoctorService;
@@ -46,24 +47,78 @@ public class PatientClient {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientClient.class);
 	
 	@RequestMapping(value = "/patients.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Patient>> patients() {
+	public ResponseEntity<List<CustomPatient>> patients() {
 		
 		LOGGER.info("getting patients...");
-		return new ResponseEntity<List<Patient>>(getPatientService().allPatients(), HttpStatus.OK);
+		List<Patient> patients = getPatientService().allPatients();
+		List<CustomPatient> customPatients = new ArrayList<CustomPatient>();
+		
+		for(Patient patient: patients) {
+			
+			CustomPatient customPatient = new CustomPatient();
+			customPatient.setPatientId(patient.getId());
+			customPatient.setReportFound(patient.getReport() == null ? false : true);
+			customPatient.setPhone(patient.getPhone());
+			customPatient.setPatientName(patient.getName());
+			customPatient.setRefBy(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getName());
+			customPatient.setRegNum(patient.getRegNum());
+			customPatient.setClinicName(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getClinic().getName());
+			customPatient.setLabName("");
+			
+			customPatients.add(customPatient);
+		}
+		
+		return new ResponseEntity<List<CustomPatient>>(customPatients, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/doctor/{doctorId}/patients.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Patient>> patientsByDoctor(@PathVariable("doctorId")long doctorId) {
+	public ResponseEntity<List<CustomPatient>> patientsByDoctor(@PathVariable("doctorId")long doctorId) {
 		
 		LOGGER.info("getting patients by doctor...");
-		return new ResponseEntity<List<Patient>>(getPatientService().patientsByDoctor(doctorId), HttpStatus.OK);
+		
+		List<Patient> patients = getPatientService().patientsByDoctor(doctorId);
+		List<CustomPatient> customPatients = new ArrayList<CustomPatient>();
+		
+		for(Patient patient: patients) {
+			
+			CustomPatient customPatient = new CustomPatient();
+			customPatient.setPatientId(patient.getId());
+			customPatient.setReportFound(patient.getReport() == null ? false : true);
+			customPatient.setPhone(patient.getPhone());
+			customPatient.setPatientName(patient.getName());
+			customPatient.setRefBy(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getName());
+			customPatient.setRegNum(patient.getRegNum());
+			customPatient.setClinicName(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getClinic().getName());
+			customPatient.setLabName("");
+			
+			customPatients.add(customPatient);
+		}
+		return new ResponseEntity<List<CustomPatient>>(customPatients, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/lab/{labId}/patients.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Patient>> patientsByLab(@PathVariable("labId")long labId) {
+	public ResponseEntity<List<CustomPatient>> patientsByLab(@PathVariable("labId")long labId) {
 		
 		LOGGER.info("getting patients by lab...");
-		return new ResponseEntity<List<Patient>>(getPatientService().patientsByLab(labId), HttpStatus.OK);
+		
+		List<Patient> patients = getPatientService().patientsByLab(labId);
+		List<CustomPatient> customPatients = new ArrayList<CustomPatient>();
+		
+		for(Patient patient: patients) {
+			
+			CustomPatient customPatient = new CustomPatient();
+			customPatient.setPatientId(patient.getId());
+			customPatient.setReportFound(patient.getReport() == null ? false : true);
+			customPatient.setPhone(patient.getPhone());
+			customPatient.setPatientName(patient.getName());
+			customPatient.setRefBy(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getName());
+			customPatient.setRegNum(patient.getRegNum());
+			customPatient.setClinicName(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getClinic().getName());
+			customPatient.setLabName("");
+			
+			customPatients.add(customPatient);
+		}
+		return new ResponseEntity<List<CustomPatient>>(customPatients, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/patient/{patientId}", method = RequestMethod.GET)

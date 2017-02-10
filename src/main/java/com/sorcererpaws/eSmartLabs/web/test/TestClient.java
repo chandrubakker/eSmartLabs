@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Test;
+import com.sorcererpaws.eSmartLabs.core.entity.respo.CustomTest;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ErrorMessage;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ValidationResponse;
 import com.sorcererpaws.eSmartLabs.core.service.department.DepartmentService;
@@ -37,21 +38,83 @@ public class TestClient {
 	private LabValidator labValidator;
 	
 	@RequestMapping(value = "/tests.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Test>> allTests() {
+	public ResponseEntity<List<CustomTest>> allTests() {
 		
-		return new ResponseEntity<List<Test>>(getTestService().allTests(), HttpStatus.OK);
+		LOGGER.info("getting all tests...");
+		List<CustomTest> customTests = new ArrayList<CustomTest>();
+		List<Test> tests = getTestService().allTests();
+		
+		for(Test test: tests) {
+			
+			CustomTest customTest = new CustomTest();
+			
+			customTest.setTestId(test.getId());
+			customTest.setDeptId(test.getDepartment().getId());
+			customTest.setLabId(test.getDepartment().getLab().getId());
+			
+			customTest.setTestName(test.getName());
+			customTest.setTestCode(test.getCode());
+			customTest.setDeptName(test.getDepartment().getName());
+			customTest.setPrice(test.getPrice());
+			customTest.setLabName(test.getDepartment().getLab().getName());
+			
+			customTests.add(customTest);
+		}
+		
+		return new ResponseEntity<List<CustomTest>>(customTests, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/lab/{labId}/tests.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Test>> testsByLab(@PathVariable("labId")long labId) {
+	public ResponseEntity<List<CustomTest>> testsByLab(@PathVariable("labId")long labId) {
 		
-		return new ResponseEntity<List<Test>>(getTestService().testsByLab(labId), HttpStatus.OK);
+		LOGGER.info("getting tests by lab...");
+		List<CustomTest> customTests = new ArrayList<CustomTest>();
+		List<Test> tests = getTestService().testsByLab(labId);
+		
+		for(Test test: tests) {
+			
+			CustomTest customTest = new CustomTest();
+			
+			customTest.setTestId(test.getId());
+			customTest.setDeptId(test.getDepartment().getId());
+			customTest.setLabId(test.getDepartment().getLab().getId());
+			
+			customTest.setTestName(test.getName());
+			customTest.setTestCode(test.getCode());
+			customTest.setDeptName(test.getDepartment().getName());
+			customTest.setPrice(test.getPrice());
+			customTest.setLabName(test.getDepartment().getLab().getName());
+			
+			customTests.add(customTest);
+		}
+		
+		return new ResponseEntity<List<CustomTest>>(customTests, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/department/{deptId}/tests.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Test>> testsByDepartment(@PathVariable("deptId")long deptId) {
+	public ResponseEntity<List<CustomTest>> testsByDepartment(@PathVariable("deptId")long deptId) {
 		
-		return new ResponseEntity<List<Test>>(getTestService().testsByDepartment(deptId), HttpStatus.OK);
+		List<CustomTest> customTests = new ArrayList<CustomTest>();
+		List<Test> tests = getTestService().testsByDepartment(deptId);
+		
+		for(Test test: tests) {
+			
+			CustomTest customTest = new CustomTest();
+			
+			customTest.setTestId(test.getId());
+			customTest.setDeptId(test.getDepartment().getId());
+			customTest.setLabId(test.getDepartment().getLab().getId());
+			
+			customTest.setTestName(test.getName());
+			customTest.setTestCode(test.getCode());
+			customTest.setDeptName(test.getDepartment().getName());
+			customTest.setPrice(test.getPrice());
+			customTest.setLabName(test.getDepartment().getLab().getName());
+			
+			customTests.add(customTest);
+		}
+		
+		return new ResponseEntity<List<CustomTest>>(customTests, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/test/update", method = RequestMethod.POST)

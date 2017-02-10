@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sorcererpaws.eSmartLabs.core.entity.clinic.Doctor;
+import com.sorcererpaws.eSmartLabs.core.entity.respo.CustomDoctor;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ErrorMessage;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ValidationResponse;
 import com.sorcererpaws.eSmartLabs.core.service.doctor.DoctorService;
@@ -33,24 +34,79 @@ public class DoctorClient {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DoctorClient.class);
 	
 	@RequestMapping(value = "/doctors.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Doctor>> getAllDoctors() {
+	public ResponseEntity<List<CustomDoctor>> getAllDoctors() {
 		
 		LOGGER.info("Getting all doctors...");
-		return new ResponseEntity<List<Doctor>>(getDoctorService().allDoctors(), HttpStatus.OK);
+		
+		List<CustomDoctor> customDoctors = new ArrayList<CustomDoctor>();
+		List<Doctor> doctors = getDoctorService().allDoctors();
+		
+		for(Doctor doctor: doctors) {
+			
+			CustomDoctor customDoctor = new CustomDoctor();
+			customDoctor.setDoctorId(doctor.getId());
+			customDoctor.setClinicId(doctor.getClinic().getId());
+			customDoctor.setLabId(doctor.getClinic().getLab().getId());
+			
+			customDoctor.setDoctorName(doctor.getName());
+			customDoctor.setClinicName(doctor.getClinic().getName());
+			customDoctor.setLabName(doctor.getClinic().getLab().getName());
+			customDoctor.setSpeciality(doctor.getSpecialization());
+			
+			customDoctors.add(customDoctor);
+		}
+		
+		return new ResponseEntity<List<CustomDoctor>>(customDoctors, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/lab/{labId}/doctors.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Doctor>> getDoctorsByLab(@PathVariable("labId")long labId) {
+	public ResponseEntity<List<CustomDoctor>> getDoctorsByLab(@PathVariable("labId")long labId) {
 		
 		LOGGER.info("Getting all doctors by lab...");
-		return new ResponseEntity<List<Doctor>>(getDoctorService().doctorsByLab(labId), HttpStatus.OK);
+		List<CustomDoctor> customDoctors = new ArrayList<CustomDoctor>();
+		List<Doctor> doctors = getDoctorService().doctorsByLab(labId);
+		
+		for(Doctor doctor: doctors) {
+			
+			CustomDoctor customDoctor = new CustomDoctor();
+			customDoctor.setDoctorId(doctor.getId());
+			customDoctor.setClinicId(doctor.getClinic().getId());
+			customDoctor.setLabId(doctor.getClinic().getLab().getId());
+			
+			customDoctor.setDoctorName(doctor.getName());
+			customDoctor.setClinicName(doctor.getClinic().getName());
+			customDoctor.setLabName(doctor.getClinic().getLab().getName());
+			customDoctor.setSpeciality(doctor.getSpecialization());
+			
+			customDoctors.add(customDoctor);
+		}
+		
+		return new ResponseEntity<List<CustomDoctor>>(customDoctors, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/clinic/{clinicId}/doctors.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Doctor>> getDoctorsByClinic(@PathVariable("clinicId")long clinicId) {
+	public ResponseEntity<List<CustomDoctor>> getDoctorsByClinic(@PathVariable("clinicId")long clinicId) {
 		
 		LOGGER.info("Getting all doctors by clinic...");
-		return new ResponseEntity<List<Doctor>>(getDoctorService().doctorsByClinic(clinicId), HttpStatus.OK);
+		List<CustomDoctor> customDoctors = new ArrayList<CustomDoctor>();
+		List<Doctor> doctors = getDoctorService().doctorsByClinic(clinicId);
+		
+		for(Doctor doctor: doctors) {
+			
+			CustomDoctor customDoctor = new CustomDoctor();
+			customDoctor.setDoctorId(doctor.getId());
+			customDoctor.setClinicId(doctor.getClinic().getId());
+			customDoctor.setLabId(doctor.getClinic().getLab().getId());
+			
+			customDoctor.setDoctorName(doctor.getName());
+			customDoctor.setClinicName(doctor.getClinic().getName());
+			customDoctor.setLabName(doctor.getClinic().getLab().getName());
+			customDoctor.setSpeciality(doctor.getSpecialization());
+			
+			customDoctors.add(customDoctor);
+		}
+		
+		return new ResponseEntity<List<CustomDoctor>>(customDoctors, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/doctor/update", method = RequestMethod.POST)

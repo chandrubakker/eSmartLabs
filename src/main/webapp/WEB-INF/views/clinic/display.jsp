@@ -31,6 +31,7 @@
 								<thead>
 									<tr>
 										<th>Name</th>
+										<th>Lab Name</th>
 										<th>Location</th>
 										<th>Phone</th>
 										<th class="no-print">Action</th>
@@ -64,33 +65,36 @@
 		
 								"aoColumnDefs" : [ {
 									"sClass" : "column-0",
-									"aTargets" : [ 0 ]
+									"aTargets" : []
 								}, {
 									"sClass" : "column-1",
-									"aTargets" : [ 3 ]
+									"aTargets" : [ 4 ]
 								}, {
-									"targets" : [ 2, 3 ],
+									"targets" : [ 3, 4 ],
 									"orderable" : false
 								} ],
 		
 								"columns" : [
 										{
-											"data" : "name"
+											"data" : "clinicName"
 										},
 										{
-											"data" : "address.locality"
+											"data" : "labName"
 										},
 										{
-											"data" : "address.phone"
+											"data" : "location"
+										},
+										{
+											"data" : "phone"
 										},
 										{
 											"mRender" : function(data, type, obj) {
 												var viewUrl = rootPath
-														+ '/clinic/'+obj.id+'/view';
+														+ '/clinic/'+obj.clinicId+'/view';
 												
 												var delUrl = rootPath
 												+ '/clinic/'
-												+ obj.id
+												+ obj.clinicId
 												+ "/delete";
 												
 												return [ '<a class="btn btn-default btn-xs no-print" href='
@@ -102,7 +106,7 @@
 														+ ' <a class="btn btn-danger btn-xs no-print" onclick="deleteConfirm(&quot;'
 														+ delUrl
 														+ '&quot;, &quot;'
-														+ obj.name
+														+ obj.labName
 														+ '&quot;, &quot;'
 														+ 'clinicTable'
 														+ '&quot;);" href='

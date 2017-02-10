@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sorcererpaws.eSmartLabs.core.entity.clinic.Patient;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Report;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.TestResult;
+import com.sorcererpaws.eSmartLabs.core.entity.respo.CustomReport;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ErrorMessage;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ValidationResponse;
 import com.sorcererpaws.eSmartLabs.core.service.patient.PatientService;
@@ -44,10 +45,55 @@ public class ReportClient {
 	private LabValidator labValidator;
 	
 	@RequestMapping(value = "/reports.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Report>> reports() {
+	public ResponseEntity<List<CustomReport>> reports() {
 		
 		LOGGER.info("getting all reports...");
-		return new ResponseEntity<List<Report>>(getReportService().allReports(), HttpStatus.OK);
+		List<CustomReport> customReports = new ArrayList<CustomReport>();
+		List<Report> reports = getReportService().allReports();
+		
+		for(Report report: reports) {
+			
+			CustomReport customReport = new CustomReport();
+			customReport.setReportId(report.getId());
+			
+			Patient patient = report.getPatient();
+			customReport.setPatientId(patient.getId());
+			customReport.setPatientName(patient.getName());
+			customReport.setPhone(patient.getPhone());
+			customReport.setRegNum(patient.getRegNum());
+			customReport.setRefBy(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getName());
+			customReport.setClinicName(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getClinic().getName());
+			
+			customReports.add(customReport);
+		}
+		
+		return new ResponseEntity<List<CustomReport>>(customReports, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/lab/{labId}/reports.json", method = RequestMethod.GET)
+	public ResponseEntity<List<CustomReport>> reportsByLab(@PathVariable("labId")long labId) {
+		
+		LOGGER.info("getting reports by lab, LAB_ID: " + labId);
+		List<CustomReport> customReports = new ArrayList<CustomReport>();
+		List<Report> reports = getReportService().reportsByLab(labId);
+		
+		for(Report report: reports) {
+			
+			CustomReport customReport = new CustomReport();
+			customReport.setReportId(report.getId());
+			
+			Patient patient = report.getPatient();
+			customReport.setPatientId(patient.getId());
+			customReport.setPatientName(patient.getName());
+			customReport.setPhone(patient.getPhone());
+			customReport.setRegNum(patient.getRegNum());
+			customReport.setRefBy(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getName());
+			customReport.setClinicName(patient.getReferredDoctor() == null ? "Self" : patient.getReferredDoctor().getClinic().getName());
+			
+			customReports.add(customReport);
+		}
+		
+		return new ResponseEntity<List<CustomReport>>(customReports, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/patient/{patientId}/report", method = RequestMethod.GET)

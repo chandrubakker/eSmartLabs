@@ -30,8 +30,9 @@
 							<table id="dept-table" class="stripe hover cell-border">
 								<thead>
 									<tr>
-										<th>Name</th>
 										<th>Code</th>
+										<th>Name</th>
+										<!-- <th>Lab Name</th> -->
 										<th class="no-print">Action</th>
 									</tr>
 								</thead>
@@ -63,7 +64,7 @@
 		
 								"aoColumnDefs" : [ {
 									"sClass" : "column-0",
-									"aTargets" : [ 0, 1 ]
+									"aTargets" : []
 								}, {
 									"sClass" : "column-1",
 									"aTargets" : [ 2 ]
@@ -74,19 +75,22 @@
 		
 								"columns" : [
 										{
-											"data" : "name"
+											"data" : "deptCode"
 										},
 										{
-											"data" : "code"
+											"data" : "deptName"
 										},
+										/* {
+											"data" : "labName"
+										}, */
 										{
 											"mRender" : function(data, type, obj) {
 												var viewUrl = rootPath
-														+ '/department/'+obj.id+'/view';
+														+ '/department/'+obj.deptId+'/view';
 												
 												var delUrl = rootPath
 												+ '/department/'
-												+ obj.id
+												+ obj.deptId
 												+ "/delete";
 												
 												return [ '<a class="btn btn-default btn-xs no-print" href='
@@ -98,7 +102,7 @@
 														+ ' <a class="btn btn-danger btn-xs no-print" onclick="deleteConfirm(&quot;'
 														+ delUrl
 														+ '&quot;, &quot;'
-														+ obj.name
+														+ obj.deptName
 														+ '&quot;, &quot;'
 														+ 'deptTable'
 														+ '&quot;);" href='

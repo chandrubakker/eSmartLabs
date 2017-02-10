@@ -13,7 +13,7 @@
 				<div class="row">
 					<div
 						class="col-lg-6 col-lg-offset-3 col-md-6 col-sm-8 col-xs-12 col-sm-offset-2 col-md-offset-3">
-						<h1 class="page-header">Client Registration</h1>
+						<h1 class="page-header">Register Your Lab</h1>
 						<div class="panel panel-default custom-panel">
 							<div class="panel-heading text-center">
 								<strong>enter details</strong>
@@ -66,7 +66,7 @@
 										<button type="reset" class="btn btn-default">Reset</button>
 									</div>
 								</form:form>
-								<validation:CRUD validateURL="/client/register" requestMethod="POST" busyMessage="registering client..." asynch="false" callBackOnSuccess="clientRegistrationSuccessPage" formId="client-reg-form" noSubmit="1" />
+								<validation:CRUD validateURL="/client/register" requestMethod="POST" busyMessage="registering your lab..." asynch="false" callBackOnSuccess="clientRegistrationSuccessPage" formId="client-reg-form" noSubmit="1" />
 							</div>
 						</div>
 					</div>

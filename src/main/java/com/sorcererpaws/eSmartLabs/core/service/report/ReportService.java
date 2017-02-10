@@ -11,5 +11,6 @@ public interface ReportService {
 	public Report getReport(long reportId);
 	public boolean deleteReport(long reportId);
 	public Report reportByPatient(long patientId);
+	public List<Report> reportsByLab(long labId);
 	public List<Report> allReports();
 }

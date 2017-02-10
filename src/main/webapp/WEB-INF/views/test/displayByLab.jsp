@@ -31,9 +31,11 @@
 							<table id="tests-table" class="stripe hover cell-border">
 								<thead>
 									<tr>
-										<th>Name</th>
 										<th>Code</th>
+										<th>Name</th>
 										<th>Price (INR)</th>
+										<th>Department</th>
+										<!-- <th>Lab Name</th> -->
 										<th class="no-print">Action</th>
 									</tr>
 								</thead>
@@ -65,32 +67,39 @@
 		
 								"aoColumnDefs" : [ {
 									"sClass" : "column-0",
-									"aTargets" : [ 0, 1 ]
+									"aTargets" : []
 								}, {
 									"sClass" : "column-1",
-									"aTargets" : [ 3 ]
+									"aTargets" : [ 4 ]
 								}, {
-									"targets" : [ 3 ],
+									"targets" : [ 4 ],
 									"orderable" : false
 								} ],
 		
 								"columns" : [
 										{
-											"data" : "name"
+											"data" : "testCode"
 										},
 										{
-											"data" : "code"
-										},{
+											"data" : "testName"
+										},
+										{
 											"data" : "price"
 										},
 										{
+											"data" : "deptName"
+										},
+										/* {
+											"data" : "labName"
+										}, */
+										{
 											"mRender" : function(data, type, obj) {
 												var viewUrl = rootPath
-														+ '/test/'+obj.id+'/view';
+														+ '/test/'+obj.testId+'/view';
 												
 												var delUrl = rootPath
 												+ '/test/'
-												+ obj.id
+												+ obj.testId
 												+ "/delete";
 												
 												return [ '<a class="btn btn-default btn-xs no-print" href='
@@ -102,7 +111,7 @@
 														+ ' <a class="btn btn-danger btn-xs no-print" onclick="deleteConfirm(&quot;'
 														+ delUrl
 														+ '&quot;, &quot;'
-														+ obj.name
+														+ obj.testName
 														+ '&quot;, &quot;'
 														+ 'testsTable'
 														+ '&quot;);" href='

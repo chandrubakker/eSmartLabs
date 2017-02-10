@@ -116,26 +116,31 @@
 					</button>
 					<c:set value="#" var="brandLink" scope="application" />
 					<c:set value="" var="brandTitle" />
+					<c:set value="fa fa-desktop" var="brandIcon" />
 					<c:choose>
 						<c:when test="${loggedInUser.role.id eq 1}">
 							<c:set value="/admin/dashboard" var="brandLink" />
 							<c:set value="Admin" var="brandTitle" />
+							<c:set value="fa fa-desktop" var="brandIcon" />
 						</c:when>
 						<c:when test="${loggedInUser.role.id eq 2}">
 							<c:set value="/technician/dashboard" var="brandLink" />
-							<c:set value="Technician" var="brandTitle" />
+							<c:set value="${loggedInUser.client.lab.name}" var="brandTitle" />
+							<c:set value="fa fa-flask" var="brandIcon" />
 						</c:when>
 						<c:when test="${loggedInUser.role.id eq 3}">
 							<c:set value="/doctor/dashboard" var="brandLink" />
 							<c:set value="Doctor" var="brandTitle" />
+							<c:set value="fa fa-desktop" var="brandIcon" />
 						</c:when>
 						<c:otherwise>
 							<c:set value="/patient/dashboard" var="brandLink" />
 							<c:set value="Patient" var="brandTitle" />
+							<c:set value="fa fa-desktop" var="brandIcon" />
 						</c:otherwise>
 					</c:choose>
 					<a class="navbar-brand" href="<c:url value="${brandLink}" />">
-						<i class="fa fa-dashcube" aria-hidden="true"></i> ${brandTitle}
+						<i class="${brandIcon}" aria-hidden="true"></i> ${brandTitle}
 					</a>
 				</div>
 				<!-- /.navbar-header -->
@@ -435,7 +440,12 @@
 									<ul class="nav nav-second-level">
 										<li>
 											<a href="<c:url value="/patients" />">
-												<i class="fa fa-table" aria-hidden="true"></i> All
+												<i class="fa fa-table" aria-hidden="true"></i> All Patients
+											</a>
+										</li>
+										<li>
+											<a href="<c:url value="/reports" />">
+												<i class="fa fa-file-image-o" aria-hidden="true"></i> All Reports
 											</a>
 										</li>
 										<security:authorize access="hasRole('ROLE_TECHNICIAN')">

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Department;
+import com.sorcererpaws.eSmartLabs.core.entity.respo.CustomDept;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ErrorMessage;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ValidationResponse;
 import com.sorcererpaws.eSmartLabs.core.service.department.DepartmentService;
@@ -33,14 +34,47 @@ public class DeptRestClient {
 	private LabValidator labValidator;
 	
 	@RequestMapping(value = "/departments.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Department>> departments() {
-		return new ResponseEntity<List<Department>>(getDepartmentService().departments(), HttpStatus.OK);
+	public ResponseEntity<List<CustomDept>> departments() {
+		
+		LOGGER.info("getting all departments...");
+		List<CustomDept> customDepts = new ArrayList<CustomDept>();
+		List<Department> departments = getDepartmentService().departments();
+		
+		for(Department department: departments) {
+			
+			CustomDept customDept = new CustomDept();
+			
+			customDept.setDeptId(department.getId());
+			customDept.setLabId(department.getLab().getId());
+			customDept.setDeptCode(department.getCode());
+			customDept.setDeptName(department.getName());
+			customDept.setLabName(department.getLab().getName());
+			
+			customDepts.add(customDept);
+		}
+				
+		return new ResponseEntity<List<CustomDept>>(customDepts, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/lab/{labId}/departments.json", method = RequestMethod.GET)
-	public ResponseEntity<List<Department>> departmentsByLab(@PathVariable("labId")long labId) {
+	public ResponseEntity<List<CustomDept>> departmentsByLab(@PathVariable("labId")long labId) {
 		
-		return new ResponseEntity<List<Department>>(getDepartmentService().departmentsByLab(labId), HttpStatus.OK);
+		List<CustomDept> customDepts = new ArrayList<CustomDept>();
+		List<Department> departments = getDepartmentService().departmentsByLab(labId);
+		
+		for(Department department: departments) {
+			
+			CustomDept customDept = new CustomDept();
+			
+			customDept.setDeptId(department.getId());
+			customDept.setLabId(department.getLab().getId());
+			customDept.setDeptCode(department.getCode());
+			customDept.setDeptName(department.getName());
+			customDept.setLabName(department.getLab().getName());
+			
+			customDepts.add(customDept);
+		}
+		return new ResponseEntity<List<CustomDept>>(customDepts, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/department/update", method = RequestMethod.POST)
