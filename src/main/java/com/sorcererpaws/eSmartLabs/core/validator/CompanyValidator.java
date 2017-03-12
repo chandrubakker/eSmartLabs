@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.sorcererpaws.eSmartLabs.core.entity.common.Contact;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Client;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Company;
 import com.sorcererpaws.eSmartLabs.core.service.user.UserService;
@@ -88,6 +89,25 @@ public class CompanyValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user.confirmPassword", "noCode","enter password again");
 		}else if (!client.getUser().getConfirmPassword().equals(client.getUser().getPassword()) && !client.getUser().getPassword().isEmpty()) {
 			errors.rejectValue("user.confirmPassword", "noCode", "both passwords are not matching");
+		}
+	}
+	
+	public void validateContactForm(Contact contact, Errors errors) {
+		
+		if(contact.getName().isEmpty()) {
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "noCode", "enter your name");
+		}
+
+		if(contact.getEmail().isEmpty()){
+			
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "noCode","enter your email address");
+		}else if (!patternMatcher(contact.getEmail(), EMAIL)) {
+			
+			errors.rejectValue("email", "noCode", "enter valid email address");
+		}
+		
+		if(contact.getQuery().isEmpty()) {
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "query", "noCode", "enter your message/query");
 		}
 	}
 

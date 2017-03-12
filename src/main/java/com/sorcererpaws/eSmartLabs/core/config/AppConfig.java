@@ -54,7 +54,8 @@ public class AppConfig {
 		Properties javaMailProps = new Properties();
 		javaMailProps.put("mail.smtp.auth", environment.getProperty("mail.smtp.auth"));
 		javaMailProps.put("mail.smtp.starttls.enable", environment.getProperty("mail.smtp.starttls.enable"));
-		javaMailProps.put("mail.debug", environment.getProperty("mail.debug"));	
+		javaMailProps.put("mail.debug", environment.getProperty("mail.debug"));
+		javaMailProps.put("mail.transport.protocol", environment.getProperty("mail.smtp.protocol"));
 
 		mailSenderImpl.setJavaMailProperties(javaMailProps);
 

@@ -119,7 +119,7 @@ public class PasswordController {
 				response.setErrorMessageList(errorMesages);
 			}else {
 				user = getUserService().userByEmail(user.getEmail());
-				EmailLink emailLink = getGlobalService().prepareEmailLink(user, request);
+				EmailLink emailLink = getGlobalService().prepareEmailLink(user, request, 2222);
 				if(emailLink != null) {
 					boolean mailSent = getMailManager().sendResetPasswordLinkMail(user, emailLink);
 					/*boolean mailSent = true;*/
@@ -168,37 +168,37 @@ public class PasswordController {
 								}	
 							}else {
 								//Link Inactive
-								modelAndView = new ModelAndView("password/reset");
+								modelAndView = new ModelAndView("password/error");
 								code = "USED";
 								modelAndView.addObject("eCode", code);
 							}
 						}else {
 							//Link Not Found
-							modelAndView = new ModelAndView("password/reset");
+							modelAndView = new ModelAndView("password/error");
 							code = "NF";
 							modelAndView.addObject("eCode", code);
 						}
 					}else {
 						//User blocked
-						modelAndView = new ModelAndView("password/reset");
+						modelAndView = new ModelAndView("password/error");
 						code = "UBLO";
 						modelAndView.addObject("eCode", code);
 					}
 				}else {
 					//User NF
-					modelAndView = new ModelAndView("password/reset");
+					modelAndView = new ModelAndView("password/error");
 					code = "UNF";
 					modelAndView.addObject("eCode", code);
 				}
 			}else {
 				//Invalid Link
-				modelAndView = new ModelAndView("password/reset");
+				modelAndView = new ModelAndView("password/error");
 				code = "IL";
 				modelAndView.addObject("eCode", code);
 			}
 		}else {
 			//Invalid Link
-			modelAndView = new ModelAndView("password/reset");
+			modelAndView = new ModelAndView("password/error");
 			code = "IL";
 			modelAndView.addObject("eCode", code);
 		}

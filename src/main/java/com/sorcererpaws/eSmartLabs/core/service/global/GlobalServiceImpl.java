@@ -60,17 +60,37 @@ public class GlobalServiceImpl implements GlobalService{
 		return rootPath;
 	}
 	
+	/**
+	 * Used to construct email link.
+	 * parameter: linFor - [ 1111 - Client Confirmation, 2222 - Reset Password ]
+	 */
 	@Override
-	public EmailLink prepareEmailLink(User user, HttpServletRequest request) {
+	public EmailLink prepareEmailLink(User user, HttpServletRequest request, int linkFor) {
 		EmailLink emailLink = null;
 		if(user != null) {
+			
 			emailLink = new EmailLink();
 			emailLink.setActive(true);
 			emailLink.setCreated(new Date());
 			emailLink.setOtrt(getOneTimeRandomToken());
 			String rootPath = getRootPath(request);
-			emailLink.setLink(rootPath+"/password/reset?userId="+user.getId()+"&otrt="+emailLink.getOtrt());
-			emailLink.setType("passwordLink");
+			switch (linkFor) {
+			case 1111:
+				
+				emailLink.setLink(rootPath+"/client/confirm?userId="+user.getId()+"&otrt="+emailLink.getOtrt());
+				emailLink.setType("labRegistration");
+				break;
+			case 2222:
+				
+				emailLink.setLink(rootPath+"/password/reset?userId="+user.getId()+"&otrt="+emailLink.getOtrt());
+				emailLink.setType("passwordLink");
+				break;		
+			default:
+				emailLink.setLink(rootPath);
+				emailLink.setType("errorLink");
+				break;
+			}
+			
 			emailLink.setUser(user);
 		}
 		return emailLink;

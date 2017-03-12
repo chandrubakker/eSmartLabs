@@ -188,23 +188,27 @@ public class LoginFormValidator implements Validator {
 	}
 	
 	public void validateForgotPassForm(User user, Errors errors) {
+		
 		User existingUser = null;
-		boolean userExists = false;
 
 		if(user.getEmail().isEmpty()){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "noCode","enter email");
-		}else {
+			
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "noCode","email address required");
+		}else if(!patternMatcher(user.getEmail(), EMAIL)){
+			
+			errors.rejectValue("email", "noCode", "invalid email address");
+		} else if(!getUserService().userExists(user.getEmail())) {
+			
+			errors.rejectValue("email", "noCode", "user with this email address not registered");
+		} else {
+			
 			existingUser = getUserService().userByEmail(user.getEmail());
-			if(existingUser != null){
-				userExists = true;
-			}
-		}
-
-		if(!user.getEmail().isEmpty()) {
-			if(!patternMatcher(user.getEmail(), EMAIL)) {
-				errors.rejectValue("email", "noCode", "enter valid email");
-			}else if(!userExists) {
-				errors.rejectValue("email", "noCode", "user with this email not registered");
+			if(existingUser == null) {
+				
+				errors.rejectValue("email", "noCode", "user with this email address not registered");
+			} else if(!existingUser.isEnabled()){
+				
+				errors.rejectValue("enabled", "noCode", "Your account not activated, contact site admin/use account activation link");
 			}
 		}
 	}

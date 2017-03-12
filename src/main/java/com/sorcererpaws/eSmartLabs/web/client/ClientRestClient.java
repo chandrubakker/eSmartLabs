@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Client;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Company;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Lab;
+import com.sorcererpaws.eSmartLabs.core.entity.password.EmailLink;
 import com.sorcererpaws.eSmartLabs.core.entity.user.Role;
 import com.sorcererpaws.eSmartLabs.core.entity.user.User;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ErrorMessage;
 import com.sorcererpaws.eSmartLabs.core.entity.validation.ValidationResponse;
 import com.sorcererpaws.eSmartLabs.core.service.client.ClientService;
+import com.sorcererpaws.eSmartLabs.core.service.global.GlobalService;
 import com.sorcererpaws.eSmartLabs.core.service.lab.LabService;
+import com.sorcererpaws.eSmartLabs.core.service.mail.MailService;
 import com.sorcererpaws.eSmartLabs.core.service.user.UserService;
+import com.sorcererpaws.eSmartLabs.core.util.MailManager;
 import com.sorcererpaws.eSmartLabs.core.validator.CompanyValidator;
 
 @RestController
@@ -40,10 +46,16 @@ public class ClientRestClient {
 	private UserService userService;
 	@Autowired
 	private CompanyValidator companyValidator;
+	@Autowired
+	private GlobalService globalService;
+	@Autowired
+	private MailManager mailManager;
+	@Autowired
+	private MailService mailService;
 	
 	
 	@RequestMapping(value = "/client/register", method = RequestMethod.POST)
-	public ResponseEntity<ValidationResponse> updateCompany(@ModelAttribute("client")Client client, BindingResult bindingResult) {
+	public ResponseEntity<ValidationResponse> updateCompany(@ModelAttribute("client")Client client, BindingResult bindingResult, HttpServletRequest request) {
 		ValidationResponse response = new ValidationResponse();
 		try {
 			
@@ -93,6 +105,27 @@ public class ClientRestClient {
 				client = getClientService().addClient(client);
 				LOGGER.info("client added.");
 				
+				EmailLink emailLink = getGlobalService().prepareEmailLink(user, request, 1111);
+				if(emailLink != null) {
+					
+					boolean mailSent = getMailManager().sendLabRegistrationMail(client, emailLink);
+					if(mailSent) {
+						
+						LOGGER.info("Lab registration mail sent...");
+						emailLink = getMailService().addEmailLink(emailLink);
+						if(emailLink.getId() > 0) {
+							
+							LOGGER.info("Email Link Added...");
+						} else {
+							
+							LOGGER.info("Failed: Email Link...");
+						}
+					} else {
+						
+						LOGGER.info("Unable to send email...");
+					}
+				}
+				
 				response.setObject(client);
 				response.setStatus("SUCCESS");
 				return new ResponseEntity<ValidationResponse>(response, HttpStatus.OK);
@@ -112,26 +145,21 @@ public class ClientRestClient {
 		return clientService;
 	}
 
-
 	public void setClientService(ClientService clientService) {
 		this.clientService = clientService;
 	}
-
 
 	public LabService getLabService() {
 		return labService;
 	}
 
-
 	public void setLabService(LabService labService) {
 		this.labService = labService;
 	}
 
-
 	public UserService getUserService() {
 		return userService;
 	}
-
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -142,8 +170,31 @@ public class ClientRestClient {
 		return companyValidator;
 	}
 
-
 	public void setCompanyValidator(CompanyValidator companyValidator) {
 		this.companyValidator = companyValidator;
+	}
+
+	public GlobalService getGlobalService() {
+		return globalService;
+	}
+
+	public void setGlobalService(GlobalService globalService) {
+		this.globalService = globalService;
+	}
+
+	public MailManager getMailManager() {
+		return mailManager;
+	}
+
+	public void setMailManager(MailManager mailManager) {
+		this.mailManager = mailManager;
+	}
+
+	public MailService getMailService() {
+		return mailService;
+	}
+
+	public void setMailService(MailService mailService) {
+		this.mailService = mailService;
 	}
 }

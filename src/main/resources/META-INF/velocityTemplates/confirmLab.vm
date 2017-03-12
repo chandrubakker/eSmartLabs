@@ -1,0 +1,16 @@
+<html>
+    <body>
+        Dear Technician,<p/>
+        <hr/>
+        <h3>Welcome to eSmartLabs</h3>
+        <h4>Your Email : ${client.user.email}</h4> 
+        <h4>Registered Lab Name : ${client.lab.name}</h4>
+        
+        <p>Please click on below link to confirm your email.</p>
+        
+        <a href="${emailLink.link}">Confirm Lab Registration</a>
+        <hr/>
+		Thanks<br/>
+        eSmartLabs - Admin.
+    </body>
+</html>
