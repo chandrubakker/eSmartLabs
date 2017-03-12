@@ -7,8 +7,9 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="Chandrashekhar">
+		<meta name="description" content="Medical Laboratory Management Application">
+		<meta name="keywords" content="lab software, medical laboratory software, pathology laboratory software, blood test management, lab management">
+		<meta name="author" content="www.sorcererpaws.com">
 		<title>
 			<sitemesh-decorator:title default="Public Theme" />
 		</title>
@@ -97,16 +98,14 @@
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-left navbar-left_c">
-						<li><a href="#">Departments</a></li>
-						<li><a href="#">Tests</a></li>
-						<security:authorize access="isAuthenticated()">
+						<security:authorize access="hasRole('ROLE_TECHNICIAN')">
 							<li class="dropdown ">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 									Patients <span class="fa fa-bars"></span>
 								</a>
 								<ul class="dropdown-menu dropdown-menu_c" role="menu">
-									<li class=""><a href="#">New Patient</a></li>
-									<li class=""><a href="#">Search Patients</a></li>
+									<li class=""><a href="<c:url value="/patient/create" />">New Patient</a></li>
+									<li class=""><a href="<c:url value="/search/patients" />">Search Patients</a></li>
 								</ul>
 							</li>
 							<li class="dropdown ">
@@ -122,9 +121,10 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right navbar-right_c">
 						<security:authorize access="isAnonymous()">
-							<li><a href="<c:url value="/client/register" />">Register</a></li>
-							<li><a href="<c:url value="/login" />">Login</a></li>
+							<li class="link_register"><a href="<c:url value="/client/register" />">Register</a></li>
+							<li class="link_login"><a href="<c:url value="/login" />">Login</a></li>
 						</security:authorize>
+						<li class="link_contact"><a href="<c:url value="/contact-us" />">Contact Us</a></li>
 						<security:authorize access="isAuthenticated()">
 							<li class="dropdown "><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-expanded="false"> <c:set
@@ -165,6 +165,7 @@
 			<sitemesh-decorator:body />
 		</div>
 		<script type="text/javascript" src="<c:url  value='/resources/ui/bootstrap/js/bootstrap.min.js' />"></script>
+		<script type="text/javascript" src="<c:url  value='/resources/ui/custom/js/script.js' />"></script>
 		
 		<!-- Busy Modal -->
 		<div class="modal fade" id="busy-modal" tabindex="-1"

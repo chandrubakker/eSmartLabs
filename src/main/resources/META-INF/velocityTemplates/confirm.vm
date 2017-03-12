@@ -1,0 +1,17 @@
+<html>
+    <body>
+        Dear ${user.name},<p/>
+        <hr/>
+        <h3>Welcome to ESchool</h3>
+        <h4>Your Email : ${user.email}</h4> 
+        <h4>Your Temporary Password : ${user.confirmPassword}</h4>
+        <h5>Please change the password after your first login.</h5>
+        
+        <p>Please click on below link to confirm your email.</p>
+        
+        <a href="http://localhost:8080/Eschool/confirmEmail?userId=${user.id}">Confirm My Email</a>
+        <hr/>
+		Thanks<br/>
+        ESchool IT Team.
+    </body>
+</html>

@@ -14,6 +14,8 @@ import org.jboss.logging.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -98,25 +100,35 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/login.json", method = RequestMethod.POST)
-	public @ResponseBody ValidationResponse validateLoginForm(@ModelAttribute("appUser")User appUser, BindingResult result) {
+	public ResponseEntity<ValidationResponse> validateLoginForm(@ModelAttribute("appUser")User appUser, BindingResult result) {
 		ValidationResponse response = new ValidationResponse();
 		try {
 			getLoginFormValidator().validateLoginForm(appUser, result);
 			if(result.hasErrors()) {
-				response.setStatus("FAIL");
+				
 				List<FieldError> allErrors = result.getFieldErrors();
 				List<ErrorMessage> errorMesages = new ArrayList<ErrorMessage>();
 				for (FieldError objectError : allErrors) {
 					errorMesages.add(new ErrorMessage(objectError.getField(), objectError.getDefaultMessage()));
 				}
+				
 				response.setErrorMessageList(errorMesages);
+				response.setStatus("FAIL");
+				return new ResponseEntity<ValidationResponse>(response, HttpStatus.BAD_REQUEST);
 			}else {
 				response.setStatus("SUCCESS");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			LOGGER.info("Error while logging - in: "+e.getMessage());
+			response.setStatus("FAIL");
+			return new ResponseEntity<ValidationResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return response;
+		
+		response.setObject(appUser);
+		response.setStatus("SUCCESS");
+		return new ResponseEntity<ValidationResponse>(response, HttpStatus.OK);
 	}
 
 	/**

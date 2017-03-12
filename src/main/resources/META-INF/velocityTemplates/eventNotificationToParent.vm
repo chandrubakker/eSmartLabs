@@ -1,0 +1,12 @@
+<html>
+    <body>
+        <p>Dear Parent <span> we are pleased to inform you that we conducting the Event<p/>
+        <hr/> 
+        <p> Event Name = ${eventInfo.eventName} </p>
+        <p>Start Date = ${eventInfo.startDate} </p>
+        <p>End Date = ${eventInfo.endDate}</p>
+        
+        Thanks <br/>
+        Eschool Admin.
+    </body>
+</html>

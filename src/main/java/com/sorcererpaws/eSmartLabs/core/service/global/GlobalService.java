@@ -10,7 +10,7 @@ public interface GlobalService {
 
 	public boolean isAdminPresent();
 	//public String getOneTimeRandomToken();
-	public EmailLink prepareEmailLink(User user, HttpServletRequest request);
+	public EmailLink prepareEmailLink(User user, HttpServletRequest request, int linkFor);
 	public boolean isLinkExpired(Date created);
 	public Date getLinkExpiredDate(Date created);
 }
