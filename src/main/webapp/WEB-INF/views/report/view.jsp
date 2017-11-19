@@ -73,8 +73,8 @@
 									<th>Test</th>
 									<th>Department</th>
 									<th>Min. Normal Value</th>
-									<th>Max. Normal Value</th>
 									<th>Observed Value</th>
+									<th>Max. Normal Value</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -83,8 +83,22 @@
 										<td>${testResult.test.name}</td>
 										<td>${testResult.test.department.name}</td>
 										<td>${testResult.test.normalMin} ${testResult.test.unitUsed}</td>
+										<c:choose>
+											<c:when test="${testResult.observedValue gt testResult.test.normalMax}">
+												<td>
+													<strong>${testResult.observedValue} ${testResult.test.unitUsed}</strong>
+												</td>
+											</c:when>
+											<c:when test="${testResult.observedValue lt testResult.test.normalMin}">
+												<td>
+													<strong>${testResult.observedValue} ${testResult.test.unitUsed}</strong>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td>${testResult.observedValue} ${testResult.test.unitUsed}</td>
+											</c:otherwise>
+										</c:choose>
 										<td>${testResult.test.normalMax} ${testResult.test.unitUsed}</td>
-										<td>${testResult.observedValue} ${testResult.test.unitUsed}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
