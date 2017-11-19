@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <html>
 	<head>
 		<title>eSmartLabs: Home</title>
@@ -18,7 +19,9 @@
 		                <p>This is a medical laboratory management software. Used to maintain departments, tests, patients, doctors and associated clinics.</p>
 		                <p>For more info mail to   <a href="mailto:pawssorcerer@gmail.com">pawssorcerer@gmail.com</a></p>
 		                <br>
-		                <a class="btn btn-primary btn-lg" href="<c:url value="/client/register" />">Register Now</a>
+		                <security:authorize access="isAnonymous()">
+		                	<a class="btn btn-primary btn-lg" href="<c:url value="/client/register" />">Register Now</a>
+		                </security:authorize>
 		            </div>
 		        </div>
 		        <hr>
@@ -53,7 +56,7 @@
 		            <div class="row">
 		                <div class="col-lg-12">
 		                    <p class="pull-left"><i class="fa fa-copyright" aria-hidden="true"></i> <a href="<c:url value="/" />">eSmartLabs</a> - 2017</p>
-		                    <p class="pull-right"><i class="fa fa-globe" aria-hidden="true"></i> <a href="<c:url value="/" />">www.sorcererpaws.com</a></p>
+		                    <%-- <p class="pull-right"><i class="fa fa-globe" aria-hidden="true"></i> <a href="<c:url value="/" />">www.sorcererpaws.com</a></p> --%>
 		                </div>
 		            </div>
 		        </footer>
