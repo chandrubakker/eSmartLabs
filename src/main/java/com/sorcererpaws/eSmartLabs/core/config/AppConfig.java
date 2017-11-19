@@ -48,8 +48,8 @@ public class AppConfig {
 		JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
 		mailSenderImpl.setHost(environment.getProperty("mail.smtp.host"));
 		mailSenderImpl.setPort(environment.getProperty("mail.smtp.port", Integer.class));
-		mailSenderImpl.setUsername(environment.getProperty("mailGunUname"));
-		mailSenderImpl.setPassword(environment.getProperty("mailGunPass"));
+		mailSenderImpl.setUsername(environment.getProperty("mail.user"));
+		mailSenderImpl.setPassword(environment.getProperty("mail.password"));
 
 		Properties javaMailProps = new Properties();
 		javaMailProps.put("mail.smtp.auth", environment.getProperty("mail.smtp.auth"));

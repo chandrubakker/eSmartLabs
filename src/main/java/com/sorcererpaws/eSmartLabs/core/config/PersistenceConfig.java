@@ -83,9 +83,9 @@ public class PersistenceConfig {
 	}
 
 	@Bean
-	public DataSourceInitializer dataSourceInitializer(DataSource dataSource) 
-	{
-		System.out.println("**************************"+initDatabase);
+	public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
+		
+		System.out.println("Intialize DB: " + initDatabase);
 		DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
 		dataSourceInitializer.setDataSource(dataSource);
 		ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
