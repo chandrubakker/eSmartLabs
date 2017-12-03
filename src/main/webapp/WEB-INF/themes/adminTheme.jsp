@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="sitemesh-decorator" %>
 <!DOCTYPE html>
@@ -101,19 +102,22 @@
 		<!-- Bootstrap MultiSelect CSS and JS: -->
 		<link rel="stylesheet" href="<c:url value="/resources/ui/pluggins/Boo_MultiSelect/css/bootstrap-multiselect.css" />" type="text/css"/>
 		
+		<!-- No Print -->
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/ui/adminTheme/css/no-print.css" />" media="print" />
 		<!-- JQuery -->
 		<script type="text/javascript" src="<c:url  value='/resources/ui/bootstrap/js/jquery.js' />"></script>
 	</head>
 	<body>
 		<div id="wrapper">
-			<nav class="navbar navbar-default navbar-static-top" role="navigation"
-				style="margin-bottom: 0">
+		
+			<nav class="navbar navbar-default navbar-static-top custom_navbar" role="navigation">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target=".navbar-collapse">
+					
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 						<span class="icon-bar"></span> <span class="icon-bar"></span>
 					</button>
+					
 					<c:set value="#" var="brandLink" scope="application" />
 					<c:set value="" var="brandTitle" />
 					<c:set value="fa fa-desktop" var="brandIcon" />
@@ -160,7 +164,7 @@
 							${loggedInUser.name}
 						</a>
 						
-						<ul class="dropdown-menu dropdown-user" style="width: 167px; border-radius: 0px;">
+						<ul class="dropdown-menu dropdown-user">
 							<li>
 								<a href="<c:url value="/user/${loggedInUser.id}/account" />">
 									<i class="fa fa-user-md" aria-hidden="true"></i> User Account
@@ -183,7 +187,7 @@
 				</ul>
 				<!-- /.navbar-top-links -->
 			
-				<div class="navbar-default sidebar" role="navigation">
+				<div class="navbar-default sidebar custom-sidebar" role="navigation">
 					<div class="sidebar-nav navbar-collapse">
 						<ul class="nav" id="side-menu">
 							<security:authorize access="isAuthenticated()">
@@ -288,9 +292,19 @@
 										</security:authorize>
 										<c:if test="${department.id gt 0}">
 											<li>
-												<a href="#">
-													<i class="fa fa-bars" aria-hidden="true"></i> ${department.name} <span class="fa arrow"></span>
-												</a>
+												<c:choose>
+													<c:when test="${fn:length(department.name) lt 30 }">
+														<a href="#">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${department.name} <span class="fa arrow"></span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="#" data-toggle="tooltip" title="${department.name}">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${fn:substring(department.name, 0, 20)} ...  <span class="fa arrow"></span>
+														</a>
+													</c:otherwise>
+												</c:choose>
+												
 												<ul class="nav nav-third-level collapse in">
 													<li>
 														<a href="<c:url value="/department/${department.id}/view" />">
@@ -329,9 +343,19 @@
 										</security:authorize>
 										<c:if test="${test.id gt 0}">
 											<li>
-												<a href="#">
-													<i class="fa fa-bars" aria-hidden="true"></i> ${test.name} <span class="fa arrow"></span>
-												</a>
+												<c:choose>
+													<c:when test="${fn:length(test.name) lt 30 }">
+														<a href="#">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${test.name} <span class="fa arrow"></span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="#" data-toggle="tooltip" title="${test.name}">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${fn:substring(test.name, 0, 20)} ...  <span class="fa arrow"></span>
+														</a>
+													</c:otherwise>
+												</c:choose>
+												
 												<ul class="nav nav-third-level collapse in">
 													<li>
 														<a href="<c:url value="/test/${test.id}/view" />">
@@ -370,9 +394,18 @@
 										</security:authorize>
 										<c:if test="${clinic.id gt 0}">
 											<li>
-												<a href="#">
-													<i class="fa fa-bars" aria-hidden="true"></i> ${clinic.name} <span class="fa arrow"></span>
-												</a>
+												<c:choose>
+													<c:when test="${fn:length(clinic.name) lt 30 }">
+														<a href="#">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${clinic.name} <span class="fa arrow"></span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="#" data-toggle="tooltip" title="${clinic.name}">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${fn:substring(clinic.name, 0, 20)} ...  <span class="fa arrow"></span>
+														</a>
+													</c:otherwise>
+												</c:choose>
 												<ul class="nav nav-third-level collapse in">
 													<li>
 														<a href="<c:url value="/clinic/${clinic.id}/view" />">
@@ -411,9 +444,18 @@
 										</security:authorize>
 										<c:if test="${doctor.id gt 0}">
 											<li>
-												<a href="#">
-													<i class="fa fa-bars" aria-hidden="true"></i> ${doctor.name} <span class="fa arrow"></span>
-												</a>
+												<c:choose>
+													<c:when test="${fn:length(doctor.name) lt 30 }">
+														<a href="#">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${doctor.name} <span class="fa arrow"></span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="#" data-toggle="tooltip" title="${doctor.name}">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${fn:substring(doctor.name, 0, 20)} ...  <span class="fa arrow"></span>
+														</a>
+													</c:otherwise>
+												</c:choose>
 												<ul class="nav nav-third-level collapse in">
 													<li>
 														<a href="<c:url value="/doctor/${doctor.id}/view" />">
@@ -457,9 +499,19 @@
 										</security:authorize>
 										<c:if test="${patient.id gt 0}">
 											<li>
-												<a href="#">
-													<i class="fa fa-bars" aria-hidden="true"></i> ${patient.name} <span class="fa arrow"></span>
-												</a>
+												<c:choose>
+													<c:when test="${fn:length(patient.name) lt 30 }">
+														<a href="#">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${patient.name} <span class="fa arrow"></span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="#" data-toggle="tooltip" title="${patient.name}">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${fn:substring(patient.name, 0, 20)} ...  <span class="fa arrow"></span>
+														</a>
+													</c:otherwise>
+												</c:choose>
+												
 												<ul class="nav nav-third-level collapse in">
 													<li>
 														<a href="<c:url value="/patient/${patient.id}/view" />">
@@ -551,9 +603,18 @@
 										</li>
 										<c:if test="${user.id gt 0}">
 											<li>
-												<a href="#">
-													<i class="fa fa-bars" aria-hidden="true"></i> ${user.name} <span class="fa arrow"></span>
-												</a>
+												<c:choose>
+													<c:when test="${fn:length(user.name) lt 30 }">
+														<a href="#">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${user.name} <span class="fa arrow"></span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="#" data-toggle="tooltip" title="${user.name}">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${fn:substring(user.name, 0, 20)} ...  <span class="fa arrow"></span>
+														</a>
+													</c:otherwise>
+												</c:choose>
 												<ul class="nav nav-third-level collapse in">
 													<li>
 														<a href="<c:url value="/user/${user.id}/account" />">

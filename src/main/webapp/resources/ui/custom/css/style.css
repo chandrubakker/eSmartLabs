@@ -1,10 +1,10 @@
 /*!
  * Styles used for home
  */
-
 body {
-	font-family: lato-light /* osans-light */;
+	font-family: lato-light;
 }
+
 .panel-default {
 	opacity: 0.9;
 }
@@ -12,18 +12,17 @@ body {
 /* footer {
     padding: 30px 0;
 } */
-
 .es-nav-brand {
 	float: left;
-    height: 50px;
-    padding: 0px 15px;
-    font-size: 18px;
-    line-height: 20px;
+	height: 50px;
+	padding: 0px 15px;
+	font-size: 18px;
+	line-height: 20px;
 }
 
 .es-nav-brand img {
 	height: 50px;
-    width: 200px;
+	width: 200px;
 }
 
 .nav-style {
@@ -32,155 +31,309 @@ body {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+
 .nav-style .navbar-collapse, .navbar-inverse .navbar-form {
-    border-color: #01A9DB;
+	border-color: #01A9DB;
 }
+
 .nav-style .navbar-toggle {
-    border-color: white;
-    border-radius: 0px;
+	border-color: white;
+	border-radius: 0px;
 }
-.nav-style .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
-    background-color: #01A9DB;
+
+.nav-style .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover,
+	.navbar-inverse .navbar-nav>.open>a:focus {
+	background-color: #01A9DB;
 }
+
+/* .navbar-nav>li>.dropdown-menu_c {
+	top: 65px;
+	background: #01A9DB;
+	width: 250px;
+	margin-right: -15px;
+	border-radius: 0px;
+	overflow: hidden;
+	border-color: #8181F7;
+} */
+
 .navbar-nav>li>.dropdown-menu_c {
-    top: 65px;
+	top: 56px;
     background: #01A9DB;
     width: 250px;
-    /* margin-right: -15px; */
+    margin-right: 0px;
     border-radius: 0px;
     overflow: hidden;
-    border-color: #8181F7;
+    border-color: #38a9db;
+    border-top-color: #55555530;
 }
+
 .dropdown-menu_c>.dropdown-header {
 	color: white;
 }
-.dropdown-menu_c li a:HOVER{
+
+.dropdown-menu_c li a:HOVER {
 	background: none;
 	color: black !important;
 }
+
 .dropdown-menu_c .divider {
-    height: 1px;
-    margin: 9px 0;
-    overflow: hidden;
-    background-color: #151515;
-} 
-.nav-style .navbar-toggle:HOVER {
-    border-color: white;
-    border-radius: 0px;
-    background: none;
+	height: 1px;
+	margin: 9px 0;
+	overflow: hidden;
+	background-color: #151515;
 }
+
+.nav-style .navbar-toggle:HOVER {
+	border-color: white;
+	border-radius: 0px;
+	background: none;
+}
+
 .nav-style .navbar-toggle:ACTIVE {
-    border-color: white;
-    border-radius: 0px;
-    background: none;
+	border-color: white;
+	border-radius: 0px;
+	background: none;
 }
 
 .nav-style .navbar-toggle:AFTER {
-    border-color: white;
-    border-radius: 0px;
-    background: none;
+	border-color: white;
+	border-radius: 0px;
+	background: none;
 }
 
 .nav-style .navbar-toggle:FOCUS {
-    border-color: white;
-    border-radius: 0px;
-    background: none;
+	border-color: white;
+	border-radius: 0px;
+	background: none;
 }
+
 .nav-style .navbar-brand {
 	color: white;
 	font-size: 22px;
 }
+
 .navbar-left_c li a {
 	color: white !important;
 	font-size: 18px;
+	padding: 15px 10px 15px 10px;
 }
+
 .navbar-right_c li a {
 	color: white !important;
-	font-size: 18px;
+    font-size: 18px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
 .custom-alert {
 	border-radius: 0px;
+    padding: 10px 0px 10px 0px;
+    margin-bottom: 0px;
+    color: white;
+    background-color: #4caf508f;
+    border: none;
+    font-size: 15px;
 }
+
 .custom-panel {
 	border-radius: 0px;
 	border: 1px solid #8181F7;
 }
+
 .custom-panel>.panel-heading {
-    color: white;
-    background-color: #8181F7;
-    border-color: #8181F7;
-    border-radius: 0px;
-    padding: 15px;
-    font-size: 18px;
+	color: white;
+	background-color: #8181F7;
+	border-color: #8181F7;
+	border-radius: 0px;
+	padding: 15px;
+	font-size: 18px;
 }
+
 .form-group input {
 	border-radius: 0px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 1.42857143;
+    color: white;
+    background-color: transparent;
+    border-color: white;
 }
+
 .form-group textarea {
 	border-radius: 0px;
+    font-size: 18px;
+    line-height: 1.42857143;
+    color: white;
+    background-color: transparent;
+    border-color: white;
 }
+
 .form-group button {
 	border-radius: 0px;
 	padding-left: 20px;
 	padding-right: 20px;
-	font-size: 15px;
-}
-.form-group>.submit_c {
-	background-color: #0489B1;
-    border-color: #0489B1;
-    color: white;
-}
-.form-group>.submit_c:HOVER {
-	background-color: #00BFFF;
-    border-color: #00BFFF;
-    color: white;
-}
-a {
-	text-decoration: none !important;
+	font-size: 18px;
 }
 
 .busy-modal-content {
 	border-radius: 15px;
-    margin-top: 45%;
-    background: rgba(0,0,0,0.5);
-    color: white;
-    padding-bottom: 20px;
+	margin-top: 45%;
+	background: rgba(0, 0, 0, 0.5);
+	color: white;
+	padding-bottom: 20px;
 }
 
 .busy-modal-content>.modal-header {
 	min-height: 16.43px;
-    padding: 15px;
-    /* border-bottom: 1px solid rgba(0,0,0,0.5); */
-    border: none;
+	padding: 15px;
+	border: none;
 }
 
 .busy-modal-title {
 	font-size: 18px;
-    font-weight: 700;	
+	font-weight: 700;
 }
 
-.alert-white {
+/* .alert-white {
 	color: currentColor;
-    background: snow;	
-}
+	background: snow;
+} */
 
-.navbar-inverse .navbar-nav>.active>a {
-	background: rgba(49, 112, 143, 0.37);
+.navbar-right>.active> a, .navbar-right>.active> a:hover {
+	background-color: transparent !important;
     color: #ffffff !important;
-    border-bottom: solid #f5f5f5 1px;
-    height: 50px;
+    font-weight: bold;
 }
 
 .navbar-right_c, .navbar-left_c {
 	padding-right: 15px;
-	padding-left: 15px;	
+	padding-left: 15px;
 }
 
-/* .navbar-nav>li {
-	padding-left: inherit;	
-} */
+/* Login Form */
+.login-form-div {
+	background: #080808ba;
+	color: white;
+	top: 5rem;
+	border: 1px solid #607d8b66;
+	border-radius: 0rem 2rem 0rem 2rem;
+}
 
-.navbar-nav>.active>a:HOVER {
-	background: #428bca !important;
-    color: #ffffff !important;
+.login-form-div .page-header {
+	border-bottom: 1px solid white;
+	max-width: 25%;
+	padding-bottom: 9px;
+	margin: 15px 0 20px;
+}
+
+.login-form-div label {
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.login-form-div a {
+	text-decoration: none !important;
+    color: white;
+    font-size: 18px;
+}
+
+.login-form-div button[type=submit], button[type=submit]:hover, button[type=reset], button[type=reset]:hover, button[type=reset]:focus {
+	background-color: transparent;
+    border-color: white;
+    color: white;
+    min-width: 10rem;
+}
+
+.login-form-div input[type=text]:focus, input[type=password]:focus {
+	border-color: white;
+}
+
+.form-group > .has-error {
+	border-color: #ff5722c7;
+}
+
+.form-group > .text-danger {
+	color: #FF5722;
+    font-size: 16px;
+}
+
+.progressAlert {
+	color: white;
+    background-color: #3aa5ca7a;
+    border: none;
+    margin-bottom: 0px;
+}
+
+.progressText {
+	font-size: 18px;
+}
+
+.custom-link {
+	padding-top: 15px;
+}
+
+/* Register Page */
+.register-form {
+	background-color: #000000b8;
+    top: 5rem;
+    color: white;
+    border-radius: 0px 20px 0px 20px;
+}
+
+.register-form .page-header {
+	padding-bottom: 9px;
+    margin: 15px 0 20px;
+    border-bottom: 1px solid #eee;
+    max-width: 50%;
+}
+
+.register-form label {
+	font-size: 18px;
+    font-weight: 500;
+}
+
+.register-form button[type=submit], button[type=submit]:hover, button[type=reset], button[type=reset]:hover, button[type=reset]:focus {
+	background-color: transparent;
+    border-color: white;
+    color: white;
+    min-width: 10rem;
+}
+
+.register-form input[type=text]:focus, input[type=password]:focus {
+	border-color: white;
+}
+
+/* Contact Page */
+.contact-form {
+	background-color: #000000b8;
+    top: 5rem;
+    color: white;
+    border-radius: 0px 20px 0px 20px;
+}
+
+.contact-form .page-header {
+	padding-bottom: 9px;
+    margin: 15px 0 20px;
+    border-bottom: 1px solid #eee;
+    max-width: 50%;
+}
+
+.contact-form label {
+	font-size: 18px;
+    font-weight: 500;
+}
+
+.contact-form button[type=submit], button[type=submit]:hover, button[type=reset], button[type=reset]:hover, button[type=reset]:focus {
+	background-color: transparent;
+    border-color: white;
+    color: white;
+    min-width: 10rem;
+}
+
+.contact-form input[type=text]:focus, input[type=password]:focus {
+	border-color: white;
+}
+
+.contact-form textarea:focus {
+	border-color: white;
 }

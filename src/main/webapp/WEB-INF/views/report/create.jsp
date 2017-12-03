@@ -55,8 +55,8 @@
 											<th scope="row" class="text-center">#</th>
 											<th class="text-center">Test Name</th>
 											<th class="text-center">Min. Value</th>
-											<th class="text-center">Max. Value</th>
 											<th class="text-center">Observed Value</th>
+											<th class="text-center">Max. Value</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -77,17 +77,33 @@
 													</div>
 												</td>
 												<td>
-													<div class="form-group">
-														<form:input class="form-control" readonly="true" path="report.testResults[${status.index}].test.normalMax" />
-													</div>
+													<c:choose>
+														<c:when test="${testResult.test.unitType eq 'ranges'}">
+															<div id="form-group-report-testResults-${status.index}--observedValue" class="form-group">
+																<form:input class="form-control" path="report.testResults[${status.index}].observedValue" placeholder="Observed Value" />
+																<div class="text-danger">
+																	<form:errors path="report.testResults[${status.index}].observedValue"
+																		class="text-danger" />
+																</div>
+															</div>
+														</c:when>
+														<c:otherwise>
+															<div id="form-group-report-testResults-${status.index}--observedValue" class="form-group">
+																<form:select class="form-control" path="report.testResults[${status.index}].observedValue" >
+																	<form:option value="negative">Negative</form:option>
+																	<form:option value="positive">Positive</form:option>
+																</form:select>
+																<div class="text-danger">
+																	<form:errors path="report.testResults[${status.index}].observedValue"
+																		class="text-danger" />
+																</div>
+															</div>
+														</c:otherwise>
+													</c:choose>
 												</td>
 												<td>
-													<div id="form-group-report-testResults-${status.index}--observedValue" class="form-group">
-														<form:input class="form-control" path="report.testResults[${status.index}].observedValue" placeholder="Observed Value" />
-														<div class="text-danger">
-															<form:errors path="report.testResults[${status.index}].observedValue"
-																class="text-danger" />
-														</div>
+													<div class="form-group">
+														<form:input class="form-control" readonly="true" path="report.testResults[${status.index}].test.normalMax" />
 													</div>
 												</td>
 											</tr>	
@@ -112,6 +128,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="modal fade" id="report-create-modal" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel" data-keyboard="false"
 			data-backdrop="static">
@@ -129,11 +146,11 @@
 		</div>
 		
 		<script type="text/javascript">
+		
 			function reportCreationSuccess() {
+				
 				var name = $("#patient-name").val();
-				$(".custom-modal-body")
-						.text(
-								name+" report created successfully.");
+				$(".custom-modal-body").text(name + " report created successfully.");
 				$("#report-create-modal").modal('show');
 			}
 		</script>

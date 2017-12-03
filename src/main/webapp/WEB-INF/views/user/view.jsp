@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="security"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <html>
 	<head>
 		<title>eSmartLabs: Profile: ${user.name}</title>
@@ -43,17 +42,7 @@
 						</security:authorize>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="profile-header-container">
-							<div class="profile-header-img">
-								<c:url value="/resources/ui/images/avatar-300x300.png"
-											var="profile_pic" />
-								<img class="img-circle" src="${profile_pic}" />
-							</div>
-						</div>
-					</div>
-				</div>
+				
 				<div class="row">
 					<div class="col-lg-12">
 						<fieldset>

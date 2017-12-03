@@ -114,14 +114,20 @@ public class LabValidator implements Validator {
 			}
 		}
 		
-		if(test.getNormalMin() > 0.0) {
-			if(test.getNormalMax() < test.getNormalMin()) {
-				errors.rejectValue("normalMax", "noCode", "max. normal value must be greater than min. normal value.");
-			}
- 		}
-		
-		if(test.getUnitUsed().isEmpty()) {
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitUsed", "noCode", "enter unit used for test");
+		if(test.getUnitType().isEmpty()) {
+			
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitType", "noCode", "select unit type");
+		} else if(test.getUnitType().equals("ranges")) {
+			
+			if(test.getNormalMin() > 0.0) {
+				if(test.getNormalMax() < test.getNormalMin()) {
+					errors.rejectValue("normalMax", "noCode", "max. normal value must be greater than min. normal value.");
+				}
+				
+				if(test.getUnitUsed().isEmpty()) {
+					ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitUsed", "noCode", "enter unit used for test");
+				}
+	 		}
 		}
 		
 		if(test.getPrice() == 0.0) {
@@ -201,9 +207,9 @@ public class LabValidator implements Validator {
 		while (iterator.hasNext()) {
 			TestResult testResult = (TestResult) iterator.next();
 			
-			if(testResult.getObservedValue() == 0.0) {
+			if(testResult.getObservedValue().isEmpty()) {
 				
-				errors.rejectValue("report.testResults["+count+"].observedValue", "noCode", "enter observed value");
+				errors.rejectValue("report.testResults["+count+"].observedValue", "noCode", "enter/select observed value");
 			}
 			
 			count++;

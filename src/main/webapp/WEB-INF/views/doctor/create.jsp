@@ -22,7 +22,7 @@
 					<form:form role="form" action="${createDoctor}" method="POST"
 						modelAttribute="doctor" id="create-doctor">
 						<div class="col-lg-6 col-lg-offset-3">
-							<legend>Doctor Details</legend>
+							<h3 class="custom-heading-view">Doctor Details</h3>
 							<form:hidden path="id" />
 							<div id="form-group-clinic-id" class="form-group">
 								<label class="control-label">Select Hospital</label>
@@ -105,11 +105,11 @@
 		</div>
 		
 		<script type="text/javascript">
+		
 			function doctorCreationSuccess() {
+				
 				var name = $("#name").val();
-				$(".custom-modal-body")
-						.text(
-								name+" created successfully.");
+				$(".custom-modal-body") .text(name + " created successfully.");
 				$("#doctor-create-modal").modal('show');
 			}
 		</script>

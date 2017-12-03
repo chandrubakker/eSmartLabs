@@ -33,6 +33,7 @@ public class Test {
 	private String code;
 	private double normalMin;
 	private double normalMax;
+	private String unitType; 
 	private String unitUsed;
 	private double price;
 	private String select;
@@ -75,6 +76,13 @@ public class Test {
 	}
 	public void setNormalMax(double normalMax) {
 		this.normalMax = normalMax;
+	}
+	
+	public String getUnitType() {
+		return unitType;
+	}
+	public void setUnitType(String unitType) {
+		this.unitType = unitType;
 	}
 	
 	public String getUnitUsed() {

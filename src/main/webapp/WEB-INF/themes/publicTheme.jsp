@@ -64,6 +64,33 @@
 				font-family: colab-regular;
 				src: url("<c:url  value='/resources/ui/fonts/Colaborate/ColabReg.otf' />");
 			}
+			
+			/* Login Page Background */
+			.loginPage {
+				background: url(<c:url value="/resources/ui/images/LoginBG.jpg" />) no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			
+			/* Register Page Background */
+			.registerPageBG {
+				background: url(<c:url value="/resources/ui/images/register_bg.jpg" />) no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			
+			/* Contact Page Background */
+			.contactPageBG {
+				background: url(<c:url value="/resources/ui/images/contact_bg.png" />) no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
 		</style>
 		
 		<link rel="stylesheet" href="<c:url  value='/resources/ui/bootstrap/css/bootstrap.css' />" />
