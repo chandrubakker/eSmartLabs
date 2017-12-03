@@ -40,6 +40,7 @@
 						jqXHR.setRequestHeader("X-Ajax-call", "true");
 						jqXHR.setRequestHeader('X-CSRF-Token', "${_csrf.token}");
 						$form.find('.form-group').removeClass('has-error');
+						$form.find('.form-control').removeClass('has-error');
 						$form.find('.form-group').removeClass('alert alert-danger');
 						$form.find('.text-danger').empty();
 						if($(".custom-alert")) {
@@ -90,10 +91,10 @@
 							fieldId=fieldId.replace(/\[/g,'-');
 						    fieldId=fieldId.replace(/\]/g,'-');
 						    console.log(fieldId);
-						    var $controlGroup = $("#form-group-"+fieldId);
+						    var $controlGroup = $("#form-group-" + fieldId);
 							
 						    console.log(fieldId);
-							$controlGroup.addClass('has-error');
+							$controlGroup.find('.form-control').addClass('has-error');
 							$controlGroup.find('.text-danger').html(item.message);
 						}
 						console.log(textStatus, jqXHR.status);

@@ -59,7 +59,7 @@
 								"language" : {
 									"emptyTable" : "tests not available."
 								},
-								
+								"pageLength": 6,
 								"ajax" : {
 									"url" : rootPath + "/lab/${loggedInUser.client.lab.id}/tests.json",
 									"dataSrc" : ""

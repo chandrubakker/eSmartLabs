@@ -8,63 +8,98 @@
 	<body>
 		<div id="page-wrapper">
 			<div class="container-fluid">
-				<div class="row">
+				<div class="row noPrint">
 					<div class="col-lg-12">
 						<h1 class="page-header">
 							${clinic.name} <small>Clinic</small>
 						</h1>
 					</div>
 				</div>
-				<div class="row">
+				
+				<div class="row noPrint">
 					<div class="col-lg-12">
 						<a href="<c:url value="#"/>" onclick="history.go(-1);" class="btn btn-default btn-sm"> <i
 							class="fa fa-hand-o-left"></i> Back
 						</a>
 					</div>
 				</div>
-				<br>
+				
 				<div class="row">
-					<div class="col-md-6">
-						<h3>Clinic details</h3>
-						<table class="table table-responsive">
-							<tbody>
-								<tr>
-									<th>Clinic Name</th>
-									<td>${clinic.name}</td>
-								</tr>
-								<tr>
-									<th>About clinic</th>
-									<td>${clinic.info}</td>
-								</tr>
-							</tbody>
-						</table>
+					<div class="col-lg-6">
+						
+						<h3 class="custom-heading-view">Clinic details</h3>
+						
+						<div class="row">
+							<div class="col-lg-4">
+								Clinic Name
+							</div>
+							<div class="col-lg-8">
+								${clinic.name}
+							</div>
+						</div>
+						<br>
+						
+						<div class="row">
+							<div class="col-lg-4">
+								About clinic
+							</div>
+							<div class="col-lg-8">
+								${clinic.info}
+							</div>
+						</div>
 					</div>
-					<div class="col-md-6">
-						<h3>Clinic address</h3>
-						<table class="table table-responsive">
-							<tbody>
-								<tr>
-									<th>Address line</th>
-									<td>${clinic.address.address}</td>
-								</tr>
-								<tr>
-									<th>Locality/Area</th>
-									<td>${clinic.address.locality}</td>
-								</tr>
-								<tr>
-									<th>City</th>
-									<td>${clinic.address.city}</td>
-								</tr>
-								<tr>
-									<th>State</th>
-									<td>${clinic.address.state}</td>
-								</tr>
-								<tr>
-									<th>Country</th>
-									<td>${clinic.address.country} - ${clinic.address.zipCode}</td>
-								</tr>
-							</tbody>
-						</table>
+					
+					<div class="col-lg-6">
+						<h3 class="custom-heading-view">Clinic address</h3>
+						
+						<div class="row">
+							<div class="col-lg-4">
+								Address line
+							</div>
+							<div class="col-lg-8">
+								${clinic.address.address}
+							</div>
+						</div>
+						<br>
+						
+						<div class="row">
+							<div class="col-lg-4">
+								Locality/Area
+							</div>
+							<div class="col-lg-8">
+								${clinic.address.locality}
+							</div>
+						</div>
+						<br>
+						
+						<div class="row">
+							<div class="col-lg-4">
+								City
+							</div>
+							<div class="col-lg-8">
+								${clinic.address.city}
+							</div>
+						</div>
+						<br>
+						
+						<div class="row">
+							<div class="col-lg-4">
+								State
+							</div>
+							<div class="col-lg-8">
+								${clinic.address.state}
+							</div>
+						</div>
+						<br>
+						
+						<div class="row">
+							<div class="col-lg-4">
+								Country
+							</div>
+							<div class="col-lg-8">
+								${clinic.address.country} - ${clinic.address.zipCode}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

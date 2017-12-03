@@ -22,25 +22,30 @@
 					<c:url value="#" var="createLab" />
 					<form:form role="form" action="${createLab}" method="POST"
 						modelAttribute="lab" id="create-lab">
-						<fieldset class="col-lg-6">
-							<legend>Lab Details</legend>
+						<div class="col-lg-6">
+							<h3 class="custom-heading">Lab Details</h3>
 							<form:hidden path="id" />
-		
-							<div id="form-group-name" class="form-group">
-								<label class="control-label">Lab Name</label>
-								<form:input path="name" placeholder="registered name"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="name" />
+							
+							<div class="row">
+								<div class="col-lg-8">
+									<div id="form-group-name" class="form-group">
+										<label class="control-label">Lab Name</label>
+										<form:input path="name" placeholder="registered name"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="name" />
+										</div>
+									</div>
 								</div>
-							</div>
-		
-							<div id="form-group-estdDate" class="form-group">
-								<label class="control-label">Established Date</label>
-								<form:input path="estdDate" id="lab-estd-date" placeholder="DD/MM/YYYY"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="estdDate" />
+								<div class="col-lg-4">
+									<div id="form-group-estdDate" class="form-group">
+										<label class="control-label">Estd. Date</label>
+										<form:input path="estdDate" id="lab-estd-date" placeholder="DD/MM/YYYY"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="estdDate" />
+										</div>
+									</div>
 								</div>
 							</div>
 							
@@ -62,9 +67,10 @@
 								</div>
 							</div>
 							
-						</fieldset>
-						<fieldset class="col-lg-6">
-							<legend>Lab Address</legend>
+						</div>
+						
+						<div class="col-lg-6">
+							<h3 class="custom-heading">Lab Address</h3>
 							<form:hidden path="address.id" />
 		
 							<div id="form-group-address-address" class="form-group">
@@ -85,43 +91,53 @@
 								</div>
 							</div>
 							
-							<div id="form-group-address-city" class="form-group">
-								<label class="control-label">City</label>
-								<form:input path="address.city" placeholder="city name"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="address.city" />
+							<div class="row">
+								<div class="col-lg-6">
+									<div id="form-group-address-city" class="form-group">
+										<label class="control-label">City</label>
+										<form:input path="address.city" placeholder="city name"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="address.city" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div id="form-group-address-state" class="form-group">
+										<label class="control-label">State</label>
+										<form:input path="address.state" placeholder="state name"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="address.state" />
+										</div>
+									</div>
 								</div>
 							</div>
 							
-							<div id="form-group-address-state" class="form-group">
-								<label class="control-label">State</label>
-								<form:input path="address.state" placeholder="state name"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="address.state" />
+							<div class="row">
+								<div class="col-lg-6">
+									<div id="form-group-address-country" class="form-group">
+										<label class="control-label">Country</label>
+										<form:input path="address.country" placeholder="country name"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="address.country" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div id="form-group-address-zipCode" class="form-group">
+										<label class="control-label">PIN Code</label>
+										<form:input path="address.zipCode" placeholder="PIN code"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="address.zipCode" />
+										</div>
+									</div>
 								</div>
 							</div>
 							
-							<div id="form-group-address-country" class="form-group">
-								<label class="control-label">Country</label>
-								<form:input path="address.country" placeholder="country name"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="address.country" />
-								</div>
-							</div>
-							
-							<div id="form-group-address-zipCode" class="form-group">
-								<label class="control-label">PIN Code</label>
-								<form:input path="address.zipCode" placeholder="PIN code"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="address.zipCode" />
-								</div>
-							</div>
-							
-						</fieldset>
+						</div>
 						<div class="col-lg-12">
 							<div class="form-group">
 								<button type="submit" class="btn btn-success btn-sm">

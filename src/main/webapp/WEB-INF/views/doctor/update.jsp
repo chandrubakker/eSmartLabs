@@ -22,7 +22,7 @@
 					<form:form role="form" action="${updateDoctor}" method="POST"
 						modelAttribute="doctor" id="update-doctor">
 						<div class="col-lg-6 col-lg-offset-3">
-							<legend>Doctor Details</legend>
+							<h3 class="custom-heading-view">Doctor Details</h3>
 							<form:hidden path="id" />
 							<div id="form-group-clinic-id" class="form-group">
 								<label class="control-label">Select Hospital</label>
@@ -87,6 +87,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="modal fade" id="doctor-update-modal" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel" data-keyboard="false"
 			data-backdrop="static">
@@ -104,11 +105,11 @@
 		</div>
 		
 		<script type="text/javascript">
+		
 			function doctorUpdateSuccess() {
+				
 				var name = $("#name").val();
-				$(".custom-modal-body")
-						.text(
-								name+" updated successfully.");
+				$(".custom-modal-body") .text(name + " updated successfully.");
 				$("#doctor-update-modal").modal('show');
 			}
 		</script>

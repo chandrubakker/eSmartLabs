@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 	<head>
 		<title>eSmartLabs: Report: ${patient.name}</title>
@@ -8,14 +9,14 @@
 	<body>
 		<div id="page-wrapper">
 			<div class="container-fluid">
-				<div class="row">
+				<div class="row noPrint">
 					<div class="col-lg-12">
 						<h1 class="page-header">
 							Report <small> of ${patient.name}</small>
 						</h1>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row noPrint">
 					<div class="col-lg-12">
 						<a href="<c:url value="#"/>" onclick="history.go(-1);" class="btn btn-default btn-sm"> <i
 							class="fa fa-hand-o-left"></i> Back
@@ -71,7 +72,6 @@
 							<thead>
 								<tr>
 									<th>Test</th>
-									<th>Department</th>
 									<th>Min. Normal Value</th>
 									<th>Observed Value</th>
 									<th>Max. Normal Value</th>
@@ -81,24 +81,58 @@
 								<c:forEach items="${patient.report.testResults}" var="testResult">
 									<tr>
 										<td>${testResult.test.name}</td>
-										<td>${testResult.test.department.name}</td>
-										<td>${testResult.test.normalMin} ${testResult.test.unitUsed}</td>
+										<td>
+											<c:choose>
+												<c:when test="${testResult.test.unitType eq 'ranges'}">
+													${testResult.test.normalMin} ${testResult.test.unitUsed}
+												</c:when>
+												<c:otherwise>
+													<span class="no-range-td">--</span>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										
 										<c:choose>
-											<c:when test="${testResult.observedValue gt testResult.test.normalMax}">
-												<td>
-													<strong>${testResult.observedValue} ${testResult.test.unitUsed}</strong>
-												</td>
+											<c:when test="${testResult.test.unitType eq 'ranges'}">
+												<c:choose>
+													<c:when test="${testResult.observedValue gt testResult.test.normalMax}">
+														<td>
+															<strong>${testResult.observedValue} ${testResult.test.unitUsed}</strong>
+														</td>
+													</c:when>
+													<c:when test="${testResult.observedValue lt testResult.test.normalMin}">
+														<td>
+															<strong>${testResult.observedValue} ${testResult.test.unitUsed}</strong>
+														</td>
+													</c:when>
+													<c:otherwise>
+														<td>${testResult.observedValue} ${testResult.test.unitUsed}</td>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
-											<c:when test="${testResult.observedValue lt testResult.test.normalMin}">
-												<td>
-													<strong>${testResult.observedValue} ${testResult.test.unitUsed}</strong>
-												</td>
-											</c:when>
+											
 											<c:otherwise>
-												<td>${testResult.observedValue} ${testResult.test.unitUsed}</td>
+												<c:choose>
+													<c:when test="${testResult.observedValue eq 'negative'}">
+														<td>${fn:toUpperCase(testResult.observedValue)}</td>														
+													</c:when>
+													<c:otherwise>
+														<td><strong>${fn:toUpperCase(testResult.observedValue)}</strong></td>
+													</c:otherwise>
+												</c:choose>
 											</c:otherwise>
 										</c:choose>
-										<td>${testResult.test.normalMax} ${testResult.test.unitUsed}</td>
+										
+										<td>
+											<c:choose>
+												<c:when test="${testResult.test.unitType eq 'ranges'}">
+													${testResult.test.normalMax} ${testResult.test.unitUsed}
+												</c:when>
+												<c:otherwise>
+													<span class="no-range-td">--</span>
+												</c:otherwise>
+											</c:choose>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>

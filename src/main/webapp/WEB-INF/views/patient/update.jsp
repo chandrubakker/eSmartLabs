@@ -19,71 +19,107 @@
 				
 				<div class="row">
 					<c:url value="#" var="updatePatient" />
-					<form:form role="form" action="${updatePatient}" method="POST"
-						modelAttribute="patient" id="update-patient">
+					<form:form role="form" action="${updatePatient}" method="POST" modelAttribute="patient" id="update-patient">
 						<div class="col-lg-6">
-							<legend>Patient Details</legend>
+							<h3 class="custom-heading">Patient Details</h3>
 							
 							<form:hidden path="id" />
-							<%-- <form:input path="report.id" /> --%>
-							<div id="form-group-regNum" class="form-group">
-								<label class="control-label">Registration Number</label>
-								<form:input path="regNum" placeholder="Registration Number"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="regNum" />
+							<div class="row">
+								<div class="col-lg-4">
+									<div id="form-group-regNum" class="form-group">
+										<label class="control-label">Reg. No.</label>
+										<form:input path="regNum" placeholder="Reg. No."
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="regNum" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-8">
+									<div id="form-group-name" class="form-group">
+										<label class="control-label">Patient Name</label>
+										<form:input path="name" placeholder="Patient name"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="name" />
+										</div>
+									</div>
 								</div>
 							</div>
 							
-							<div id="form-group-name" class="form-group">
-								<label class="control-label">Patient Name</label>
-								<form:input path="name" placeholder="Patient name"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="name" />
+							<div class="row">
+								<div class="col-lg-12">
+									<div id="form-group-gender" style="padding-bottom: 10px;">
+										<label class="control-label">Gender</label>
+										
+										<label class="radio-inline">
+										 	<form:radiobutton path="gender" value="Male" />Male
+										</label>
+										
+										<label class="radio-inline">
+										 	<form:radiobutton path="gender" value="Female" />Female
+										</label>
+										
+										<label class="radio-inline">
+										 	<form:radiobutton path="gender" value="Others" />Others
+										</label>
+										<div class="text-danger">
+											<form:errors path="gender" />
+										</div>
+									</div>
 								</div>
 							</div>
 							
-							<div id="form-group-gender" style="padding-bottom: 10px;">
-								<label class="control-label">Gender</label>
-								
-								<label class="radio-inline">
-								 	<form:radiobutton path="gender" value="Male" />Male
-								</label>
-								
-								<label class="radio-inline">
-								 	<form:radiobutton path="gender" value="Female" />Female
-								</label>
-								
-								<label class="radio-inline">
-								 	<form:radiobutton path="gender" value="Others" />Others
-								</label>
-								<div class="text-danger">
-									<form:errors path="gender" />
+							<div class="row">
+								<div class="col-lg-4">
+									<div id="form-group-age" class="form-group">
+										<label class="control-label">Age</label>
+										<form:input path="age" placeholder="Age"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="age" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-8">
+									<div id="form-group-dateOfAdmission" class="form-group">
+										<label class="control-label">Admission Date</label>
+										<form:input path="dateOfAdmission" placeholder="DD/MM/YYYY" id="admn-date"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="dateOfAdmission" />
+										</div>
+									</div>
 								</div>
 							</div>
 							
-							<div id="form-group-age" class="form-group">
-								<label class="control-label">Age</label>
-								<form:input path="age" placeholder="Age"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="age" />
+							<div class="row">
+								<div class="col-lg-6">
+									<div id="form-group-shortAddress" class="form-group">
+										<label class="control-label">Location</label>
+										<form:input path="shortAddress" placeholder="location"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="shortAddress" />
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div id="form-group-phone" class="form-group">
+										<label class="control-label">Phone Number</label>
+										<form:input path="phone" placeholder="mobile/phone"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="phone" />
+										</div>
+									</div>
 								</div>
 							</div>
 							
-							<div id="form-group-dateOfAdmission" class="form-group">
-								<label class="control-label">Admission Date</label>
-								<form:input path="dateOfAdmission" placeholder="DD/MM/YYYY" id="admn-date"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="dateOfAdmission" />
-								</div>
-							</div>
 						</div>
 						
 						<div class="col-lg-6">
-							<legend>Medical Details</legend>
+							<h3 class="custom-heading">Medical Details</h3>
 							
 							<div id="form-group-selfInterest" style="padding-bottom: 10px;">
 								<label class="control-label">Self Interest</label>
@@ -101,7 +137,7 @@
 								</div>
 							</div>
 							
-							<div id="form-group-referredDoctor-id" class="form-group">
+							<div id="form-group-referredDoctor-id" class="form-group doctor_select">
 								<label class="control-label">Select Referred Doctor</label>
 								<form:select path="referredDoctor.id" cssClass="form-control">
 									<form:option value="-1">Choose Doctor</form:option>
@@ -133,23 +169,6 @@
 								</div>
 							</div>
 							
-							<div id="form-group-shortAddress" class="form-group">
-								<label class="control-label">Short Address</label>
-								<form:textarea path="shortAddress" rows="4" placeholder="short address here."
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="shortAddress" />
-								</div>
-							</div>
-							
-							<div id="form-group-phone" class="form-group">
-								<label class="control-label">Phone Number</label>
-								<form:input path="phone" placeholder="contact number"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="phone" />
-								</div>
-							</div>
 						</div>
 						
 						<div class="col-lg-12">
@@ -162,6 +181,7 @@
 								</button>
 							</div>
 						</div>
+						
 					</form:form>
 					<validation:CRUD validateURL="/patient/update" requestMethod="POST" busyMessage="updating patient..." asynch="false" callBackOnSuccess="patientUpdateSuccess" formId="update-patient" noSubmit="1" />
 				</div>
@@ -209,11 +229,11 @@
 		</div>
 		
 		<script type="text/javascript">
+		
 			function patientUpdateSuccess() {
+				
 				var name = $("#name").val();
-				$(".custom-modal-body")
-						.text(
-								name+" updated successfully.");
+				$(".custom-modal-body").text(name + " updated successfully.");
 				$("#patient-update-modal").modal('show');
 			}
 			
@@ -224,6 +244,32 @@
 			});
 			
 			$(window).load(function(){
+				
+				var doctorSelect = $('.doctor_select');
+				var selfInterest = $('input[name=selfInterest]:checked');
+				
+				if(selfInterest.val() === "Yes") {
+					
+					doctorSelect.hide();
+				} else {
+					
+					doctorSelect.show();
+				}
+				
+				$('input[type=radio][name=selfInterest]').change(function() {
+			        
+					if (this.value == 'Yes') {
+			            
+						console.log("Radio Value: " + this.value);
+						
+						doctorSelect.hide(1000);
+			        } else if (this.value == 'No') {
+			            
+			        	console.log("Radio Value: " + this.value);
+			        	doctorSelect.show(1000);
+			        }
+			    });
+				
 				var reportId = "${patient.report.id}";
 				console.log("Report ID: " + reportId);
 				if(reportId) {
@@ -235,6 +281,7 @@
 					console.log("Report not generated.");
 				}
 		    });
+			
 		</script>
 	</body>
 </html>

@@ -1,12 +1,14 @@
 package com.sorcererpaws.eSmartLabs.core.config;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -24,8 +26,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-		registry.addResourceHandler("/decorators/**").addResourceLocations("/decorators/");
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry
+			.addResourceHandler("/decorators/**")
+			.addResourceLocations("/decorators/")
+			.setCacheControl(CacheControl.maxAge(30L, TimeUnit.DAYS).cachePublic())
+			.resourceChain(true);
+		
+		registry
+			.addResourceHandler("/resources/**")
+			.addResourceLocations("/resources/")
+			.setCacheControl(CacheControl.maxAge(30L, TimeUnit.DAYS).cachePublic())
+			.resourceChain(true);
 	}
 
 	@Bean

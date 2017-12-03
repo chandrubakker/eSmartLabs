@@ -77,19 +77,36 @@
 													</div>
 												</td>
 												<td>
+													<c:choose>
+														<c:when test="${testResult.test.unitType eq 'ranges'}">
+															<div id="form-group-report-testResults-${status.index}--observedValue" class="form-group">
+																<form:input class="form-control" path="report.testResults[${status.index}].observedValue" placeholder="Observed Value" />
+																<div class="text-danger">
+																	<form:errors path="report.testResults[${status.index}].observedValue"
+																		class="text-danger" />
+																</div>
+															</div>
+														</c:when>
+														<c:otherwise>
+															<div id="form-group-report-testResults-${status.index}--observedValue" class="form-group">
+																<form:select class="form-control" path="report.testResults[${status.index}].observedValue" >
+																	<form:option value="negative">Negative</form:option>
+																	<form:option value="positive">Positive</form:option>
+																</form:select>
+																<div class="text-danger">
+																	<form:errors path="report.testResults[${status.index}].observedValue"
+																		class="text-danger" />
+																</div>
+															</div>
+														</c:otherwise>
+													</c:choose>
+												</td>
+												<td>
 													<div class="form-group">
 														<form:input class="form-control" readonly="true" path="report.testResults[${status.index}].test.normalMax" />
 													</div>
 												</td>
-												<td>
-													<div id="form-group-report-testResults-${status.index}--observedValue" class="form-group">
-														<form:input class="form-control" path="report.testResults[${status.index}].observedValue" placeholder="Observed Value" />
-														<div class="text-danger">
-															<form:errors path="report.testResults[${status.index}].observedValue"
-																class="text-danger" />
-														</div>
-													</div>
-												</td>
+												
 											</tr>	
 										</c:forEach>	
 									</tbody>

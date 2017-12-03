@@ -17,7 +17,7 @@ public class TestResult {
 	private long id;
 	private Patient patient;
 	private Test test;
-	private double observedValue;
+	private String observedValue;
 	private Report report;
 	
 	@Id
@@ -49,10 +49,10 @@ public class TestResult {
 		this.test = test;
 	}
 	
-	public double getObservedValue() {
+	public String getObservedValue() {
 		return observedValue;
 	}
-	public void setObservedValue(double observedValue) {
+	public void setObservedValue(String observedValue) {
 		this.observedValue = observedValue;
 	}
 	

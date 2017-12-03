@@ -20,8 +20,8 @@
 					<c:url value="#" var="createDept" />
 					<form:form role="form" action="${createDept}" method="POST"
 						modelAttribute="department" id="create-dept">
-						<fieldset class="col-lg-6 col-lg-offset-3">
-							<legend>Department Details</legend>
+						<div class="col-lg-6 col-lg-offset-3">
+							<h3 class="custom-heading-view">Department Details</h3>
 							<form:hidden path="id" />
 							<form:hidden path="lab.id" value="${loggedInUser.client.lab.id}" />
 							<div id="form-group-name" class="form-group">
@@ -44,7 +44,7 @@
 		
 							<div id="form-group-info" class="form-group">
 								<label class="control-label">About the department</label>
-								<form:textarea path="info" rows="4" placeholder="about the department"
+								<form:textarea path="info" rows="2" placeholder="about the department"
 									cssClass="form-control" />
 								<div class="text-danger">
 									<form:errors path="info" />
@@ -60,7 +60,7 @@
 								</button>
 							</div>
 							
-						</fieldset>
+						</div>
 					</form:form>
 					<validation:CRUD validateURL="/department/update" requestMethod="POST" busyMessage="creating department..." asynch="false" callBackOnSuccess="deptCreationSuccess" formId="create-dept" noSubmit="1" />
 				</div>

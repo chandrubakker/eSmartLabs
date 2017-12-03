@@ -1,5 +1,8 @@
 package com.sorcererpaws.eSmartLabs.web.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -25,6 +28,15 @@ public class TestController {
 	private DepartmentService departmentService;
 	@Autowired
 	private TestService testService;
+	
+	private Map<String, String> unitTypes() {
+		
+		Map<String, String> types = new HashMap<String, String>();
+		types.put("ranges", "Has Ranges");
+		types.put("neg_pos", "Negative/Positive");
+		
+		return types;
+	}
 
 	@RequestMapping(value = "/tests", method = RequestMethod.GET)
 	public String allTests(HttpSession httpSession) {
@@ -59,7 +71,8 @@ public class TestController {
 			if(loggedInUser != null) {
 				return new ModelAndView("test/create").addObject("test", new Test())
 						.addObject("departments", getDepartmentService()
-								.departmentsByLab(loggedInUser.getClient().getLab().getId()));
+								.departmentsByLab(loggedInUser.getClient().getLab().getId()))
+						.addObject("unitTypes", unitTypes());
 			}
 		}
 		
@@ -72,9 +85,10 @@ public class TestController {
 		if(httpSession != null) {
 			User loggedInUser = (User) httpSession.getAttribute("loggedInUser");
 			if(loggedInUser != null) {
-				return new ModelAndView("test/create").addObject("test", getTestService().getTest(testId))
+				return new ModelAndView("test/update").addObject("test", getTestService().getTest(testId))
 						.addObject("departments", getDepartmentService()
-								.departmentsByLab(loggedInUser.getClient().getLab().getId()));
+								.departmentsByLab(loggedInUser.getClient().getLab().getId()))
+						.addObject("unitTypes", unitTypes());
 			}
 		}
 		

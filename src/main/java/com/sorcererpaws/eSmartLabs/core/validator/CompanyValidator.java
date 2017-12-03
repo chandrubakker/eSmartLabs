@@ -94,9 +94,9 @@ public class CompanyValidator implements Validator {
 	
 	public void validateContactForm(Contact contact, Errors errors) {
 		
-		if(contact.getName().isEmpty()) {
+		/*if(contact.getName().isEmpty()) {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "noCode", "enter your name");
-		}
+		}*/
 
 		if(contact.getEmail().isEmpty()){
 			
