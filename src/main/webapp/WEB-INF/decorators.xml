@@ -42,6 +42,8 @@
 		<pattern>/clinic/**</pattern>
 		<pattern>/tests</pattern>
 		<pattern>/test/**</pattern>
+		<pattern>/test-groups</pattern>
+		<pattern>/test-group/**</pattern>
 		<pattern>/company/**</pattern>
 		<pattern>/reports</pattern>
 	</decorator>

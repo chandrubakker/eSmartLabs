@@ -63,6 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/tests").access("isAuthenticated()")
 		.antMatchers("/test/**").access("hasRole('ROLE_TECHNICIAN') or hasRole('ROLE_ADMIN')")
 		
+		.antMatchers("/test-groups").access("isAuthenticated()")
+		.antMatchers("/test-group/**").access("hasRole('ROLE_TECHNICIAN') or hasRole('ROLE_ADMIN')")
+		
 		.antMatchers("/users").access("hasRole('ROLE_ADMIN')")
 		.antMatchers("/user/**").access("isAuthenticated()")
 		

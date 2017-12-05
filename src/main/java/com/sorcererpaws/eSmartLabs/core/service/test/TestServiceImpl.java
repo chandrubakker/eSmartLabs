@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sorcererpaws.eSmartLabs.core.dao.test.TestDao;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Test;
+import com.sorcererpaws.eSmartLabs.core.entity.lab.TestGroup;
 
 @Service
 @Transactional(readOnly = true)
@@ -62,7 +63,53 @@ public class TestServiceImpl implements TestService {
 
 	@Override
 	public boolean isTestExists(String testCode) {
+		
 		return getTestDao().isTestExists(testCode);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public TestGroup createTestGroup(TestGroup testGroup) {
+		
+		return getTestDao().createTestGroup(testGroup);
+	}
+
+	@Override
+	public TestGroup getTestGroup(Long testGroupId) {
+		
+		return getTestDao().getTestGroup(testGroupId);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public TestGroup updateTestGroup(TestGroup testGroup) {
+		
+		return getTestDao().updateTestGroup(testGroup);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean deleteTestGroup(Long testGroupId) {
+		
+		return getTestDao().deleteTestGroup(testGroupId);
+	}
+
+	@Override
+	public List<TestGroup> testGroups() {
+		
+		return getTestDao().testGroups();
+	}
+
+	@Override
+	public List<Test> testsByTestGroup(Long testGroupId) {
+		
+		return getTestDao().testsByTestGroup(testGroupId);
+	}
+
+	@Override
+	public List<TestGroup> testGroupsByLab(long labId) {
+		
+		return getTestDao().testGroupsByLab(labId);
 	}
 
 	//Getters and setters

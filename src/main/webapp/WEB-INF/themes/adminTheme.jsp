@@ -375,6 +375,57 @@
 									</ul>
 								</li>
 								
+								<li class="testGroupLI">
+									<a href="#">
+										<i class="fa fa-object-group" aria-hidden="true"></i> Test Groups <span class="fa arrow"></span>
+									</a>
+									<ul class="nav nav-second-level">
+										<li>
+											<a href="<c:url value="/test-groups" />">
+												<i class="fa fa-table" aria-hidden="true"></i> All
+											</a>
+										</li>
+										<security:authorize access="hasRole('ROLE_TECHNICIAN')">
+											<li>
+												<a href="<c:url value="/test-group/create" />">
+													<i class="fa fa-plus-square-o" aria-hidden="true"></i> Create
+												</a>
+											</li>
+										</security:authorize>
+										<c:if test="${testGroup.id gt 0}">
+											<li>
+												<c:choose>
+													<c:when test="${fn:length(testGroup.name) lt 30 }">
+														<a href="#">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${testGroup.name} <span class="fa arrow"></span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a href="#" data-toggle="tooltip" title="${testGroup.name}">
+															<i class="fa fa-bars" aria-hidden="true"></i> ${fn:substring(testGroup.name, 0, 20)} ...  <span class="fa arrow"></span>
+														</a>
+													</c:otherwise>
+												</c:choose>
+												
+												<ul class="nav nav-third-level collapse in">
+													<li>
+														<a href="<c:url value="/test-group/${testGroup.id}/view" />">
+															<i class="fa fa-eye" aria-hidden="true"></i> View
+														</a>
+													</li>
+													<security:authorize access="hasRole('ROLE_TECHNICIAN')">
+														<li>
+															<a href="<c:url value="/test-group/${testGroup.id}/update" />">
+																<i class="fa fa-edit" aria-hidden="true"></i> Update
+															</a>
+														</li>
+													</security:authorize>
+												</ul>							
+											</li>
+										</c:if>
+									</ul>
+								</li>
+								
 								<li class="clinicLI">
 									<a href="#">
 										<i class="fa fa-h-square" aria-hidden="true"></i> Clinics <span class="fa arrow"></span>
@@ -699,6 +750,12 @@
 			    	$(".testLI").addClass("active");
 			    	$(".testLI>ul").addClass("in");
 			    	$(".testLI>ul").attr("style", "max-height: 200px");
+			    }
+			    
+			    if(url.indexOf("/test-group/") !== -1 && url.indexOf("/create") === -1) {
+			    	$(".testGroupLI").addClass("active");
+			    	$(".testGroupLI>ul").addClass("in");
+			    	$(".testGroupLI>ul").attr("style", "max-height: 200px");
 			    }
 			    
 			    if(url.indexOf("/clinic/") !== -1 && url.indexOf("/create") === -1) {

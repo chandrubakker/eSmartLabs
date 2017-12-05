@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Test;
+import com.sorcererpaws.eSmartLabs.core.entity.lab.TestGroup;
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -81,6 +82,64 @@ public class TestDaoImpl implements TestDao {
 				.createQuery("FROM Test T WHERE T.code = :testCode", Test.class);
 		typedQuery.setParameter("testCode", testCode);
 		return (typedQuery.getResultList().isEmpty() ? false : true);
+	}
+
+	@Override
+	public TestGroup createTestGroup(TestGroup testGroup) {
+		
+		getEntityManager().merge(testGroup);
+		return testGroup;
+	}
+
+	@Override
+	public TestGroup getTestGroup(Long testGroupId) {
+		
+		return getEntityManager().find(TestGroup.class, testGroupId);
+	}
+
+	@Override
+	public TestGroup updateTestGroup(TestGroup testGroup) {
+		
+		testGroup = (TestGroup) getEntityManager().merge(testGroup);
+		return testGroup;
+	}
+
+	@Override
+	public boolean deleteTestGroup(Long testGroupId) {
+		
+		return getEntityManager()
+				.createQuery("DELETE FROM TestGroup TG WHERE TG.id = :testGroupId")
+				.setParameter("testGroupId", testGroupId)
+				.executeUpdate() > 0;
+	}
+
+	@Override
+	public List<TestGroup> testGroups() {
+		
+		return getEntityManager()
+				.createQuery("FROM TestGroup TG", TestGroup.class)
+				.getResultList();
+	}
+
+	@Override
+	public List<Test> testsByTestGroup(Long testGroupId) {
+		
+		Query query = getEntityManager()
+				.createQuery("SELECT TG.tests FROM TestGroup TG WHERE TG.id = :testGroupId");
+		query.setParameter("testGroupId", testGroupId);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<TestGroup> testGroupsByLab(long labId) {
+		
+		String query = "SELECT DISTINCT T.testGroups FROM Test T WHERE T.department.id IN ";
+		query = query + "(SELECT D.id FROM Department D WHERE D.lab.id = :labId)";
+		
+		Query testGroupsByLab = getEntityManager().createQuery(query);
+		testGroupsByLab.setParameter("labId", labId);
+		
+		return testGroupsByLab.getResultList();
 	}
 
 	//Getters and setters

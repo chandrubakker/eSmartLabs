@@ -40,6 +40,7 @@ public class Test {
 	private Date lastUpdatedDate;
 	private List<Patient> patients = new ArrayList<Patient>();
 	private Department department;
+	private List<TestGroup> testGroups = new ArrayList<TestGroup>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -136,5 +137,17 @@ public class Test {
 	}
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+	
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL)
+	@Fetch(value = FetchMode.SUBSELECT)
+	@JoinTable(name = "TestGroup_Test", joinColumns = {@JoinColumn(name = "testId")}, 
+	inverseJoinColumns = {@JoinColumn(name = "testGroupId")})
+	public List<TestGroup> getTestGroups() {
+		return testGroups;
+	}
+	public void setTestGroups(List<TestGroup> testGroups) {
+		this.testGroups = testGroups;
 	}
 }
