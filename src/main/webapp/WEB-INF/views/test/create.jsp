@@ -96,33 +96,152 @@
 						
 						<div class="col-lg-6 test_ranges" style="display: none">
 							<h3 class="custom-heading-view">Reference Ranges</h3>
-							<div id="form-group-normalMin" class="form-group">
-								<label class="control-label">Min. Normal Value</label>
-								<form:input path="normalMin" placeholder="min. value"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="normalMin" />
+							
+							<div class="row">
+								<div class="col-lg-8">
+									<div id="form-group-rangesSameForAll" style="padding-bottom: 10px;">
+										<label class="control-label">Ranges Same For All?</label>
+										
+										<label class="radio-inline">
+										 	<form:radiobutton path="rangesSameForAll" value="No" />No
+										</label>
+										
+										<label class="radio-inline">
+										 	<form:radiobutton path="rangesSameForAll" value="Yes" />Yes
+										</label>
+										
+										<div class="text-danger">
+											<form:errors path="rangesSameForAll" />
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div id="form-group-unitUsed" class="form-group">
+										<label class="control-label">Unit</label>
+										<form:input path="unitUsed"
+											placeholder="unit used ex. mg/dl, fl, pg, % etc."
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="unitUsed" />
+										</div>
+									</div>
 								</div>
 							</div>
-		
-							<div id="form-group-normalMax" class="form-group">
-								<label class="control-label">Max. Normal Value</label>
-								<form:input path="normalMax" placeholder="max. value"
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="normalMax" />
+							
+							<div class="row">
+								<div class="col-lg-12">
+									<h3 class="custom-heading-view">For Everyone</h3>
+								</div>
+								
+								<div class="col-lg-6">
+									<div id="form-group-normalMin" class="form-group">
+										<label class="control-label">Min. Value</label>
+										<form:input path="normalMin" placeholder="min. value"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="normalMin" />
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-lg-6">
+									<div id="form-group-normalMax" class="form-group">
+										<label class="control-label">Max. Value</label>
+										<form:input path="normalMax" placeholder="max. value"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="normalMax" />
+										</div>
+									</div>
 								</div>
 							</div>
-		
-							<div id="form-group-unitUsed" class="form-group">
-								<label class="control-label">Test Unit</label>
-								<form:input path="unitUsed"
-									placeholder="unit used ex. mg/dl, fl, pg, % etc."
-									cssClass="form-control" />
-								<div class="text-danger">
-									<form:errors path="unitUsed" />
+							
+							<!-- Male Ranges -->
+							<div class="row">
+								<div class="col-lg-12">
+									<h3 class="custom-heading-view">For Male</h3>
+								</div>
+								<div class="col-lg-6">
+									<div id="form-group-maleMin" class="form-group">
+										<label class="control-label">Min. Value</label>
+										<form:input path="maleMin" placeholder="min. value"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="maleMin" />
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-lg-6">
+									<div id="form-group-maleMax" class="form-group">
+										<label class="control-label">Max. Value</label>
+										<form:input path="maleMax" placeholder="max. value"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="maleMax" />
+										</div>
+									</div>
 								</div>
 							</div>
+							
+							<!-- Female Ranges -->
+							<div class="row">
+								<div class="col-lg-12">
+									<h3 class="custom-heading-view">For Female</h3>
+								</div>
+								
+								<div class="col-lg-6">
+									<div id="form-group-femaleMin" class="form-group">
+										<label class="control-label">Min. Value</label>
+										<form:input path="femaleMin" placeholder="min. value"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="femaleMin" />
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-lg-6">
+									<div id="form-group-femaleMax" class="form-group">
+										<label class="control-label">Max. Value</label>
+										<form:input path="femaleMax" placeholder="max. value"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="femaleMax" />
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- Children Ranges -->
+							<div class="row">
+								<div class="col-lg-12">
+									<h3 class="custom-heading-view">For Children</h3>
+								</div>
+								<div class="col-lg-6">
+									<div id="form-group-childMin" class="form-group">
+										<label class="control-label">Min. Value</label>
+										<form:input path="childMin" placeholder="min. value"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="childMin" />
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-lg-6">
+									<div id="form-group-childMax" class="form-group">
+										<label class="control-label">Max. Value</label>
+										<form:input path="childMax" placeholder="max. value"
+											cssClass="form-control" />
+										<div class="text-danger">
+											<form:errors path="childMax" />
+										</div>
+									</div>
+								</div>
+							</div>
+							
 						</div>
 						
 						<div class="col-lg-6 col-lg-offset-3 test_buttons">
@@ -201,6 +320,21 @@
 					
 					console.log(this.value);
 				});
+				
+				var ageGroupDiv = $(".");
+				
+				$('input[type=radio][name=rangesSameForAll]').change(function() {
+			        
+					if (this.value == 'Yes') {
+			            
+						console.log("Radio Value: " + this.value);
+						ageGroupDiv.hide(1000);
+			        } else if (this.value == 'No') {
+			            
+			        	console.log("Radio Value: " + this.value);
+			        	ageGroupDiv.show(1000);
+			        }
+			    });
 			});
 		</script>
 	</body>

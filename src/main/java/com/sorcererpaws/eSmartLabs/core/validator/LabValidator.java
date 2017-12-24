@@ -16,6 +16,7 @@ import com.sorcererpaws.eSmartLabs.core.entity.lab.Department;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Lab;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Report;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Test;
+import com.sorcererpaws.eSmartLabs.core.entity.lab.TestGroup;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.TestResult;
 import com.sorcererpaws.eSmartLabs.core.service.department.DepartmentService;
 import com.sorcererpaws.eSmartLabs.core.service.test.TestService;
@@ -119,15 +120,20 @@ public class LabValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitType", "noCode", "select unit type");
 		} else if(test.getUnitType().equals("ranges")) {
 			
-			if(test.getNormalMin() > 0.0) {
-				if(test.getNormalMax() < test.getNormalMin()) {
-					errors.rejectValue("normalMax", "noCode", "max. normal value must be greater than min. normal value.");
+			try {
+				if(Double.parseDouble(test.getNormalMin()) > 0.0) {
+					if(Double.parseDouble(test.getNormalMax()) < Double.parseDouble(test.getNormalMin())) {
+						errors.rejectValue("normalMax", "noCode", "max. normal value must be greater than min. normal value.");
+					}
+					
+					if(test.getUnitUsed().isEmpty()) {
+						ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitUsed", "noCode", "enter unit used for test");
+					}
 				}
+			} catch (NumberFormatException e) {
 				
-				if(test.getUnitUsed().isEmpty()) {
-					ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitUsed", "noCode", "enter unit used for test");
-				}
-	 		}
+				errors.rejectValue("normalMax", "noCode", "invalid range values: " + e.getMessage());
+			}
 		}
 		
 		if(test.getPrice() == 0.0) {
@@ -213,6 +219,26 @@ public class LabValidator implements Validator {
 			}
 			
 			count++;
+		}
+	}
+	
+	/**
+	 * Used to validate create/update test-group
+	 * @param testGroup
+	 * @param errors
+	 */
+	public void validateCreateTestGroup(TestGroup testGroup, Errors errors) {
+		
+		if(testGroup.getName().isEmpty()) {
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "noCode", "enter test group name.");
+		}
+		
+		if(testGroup.getTests() == null) {
+			errors.rejectValue("tests", "noCode", "select tests to group.");
+		}else if(testGroup.getTests() != null) {
+			if(testGroup.getTests().size() == 0) {
+				errors.rejectValue("tests", "noCode", "select tests to group.");
+			}
 		}
 	}
 

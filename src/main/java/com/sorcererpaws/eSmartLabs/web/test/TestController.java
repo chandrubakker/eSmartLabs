@@ -1,6 +1,7 @@
 package com.sorcererpaws.eSmartLabs.web.test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Test;
+import com.sorcererpaws.eSmartLabs.core.entity.lab.TestGroup;
 import com.sorcererpaws.eSmartLabs.core.entity.user.User;
 import com.sorcererpaws.eSmartLabs.core.service.department.DepartmentService;
 import com.sorcererpaws.eSmartLabs.core.service.test.TestService;
@@ -98,6 +100,88 @@ public class TestController {
 	@RequestMapping(value = "/test/{testId}/view", method = RequestMethod.GET)
 	public ModelAndView viewTest(@PathVariable("testId")long testId) {
 		return new ModelAndView("test/view").addObject("test", getTestService().getTest(testId));
+	}
+	
+	
+	@RequestMapping(value = "/test-groups", method = RequestMethod.GET)
+	public String allTestGroups(HttpSession httpSession) {
+		
+		if(httpSession == null) {
+			
+			return "redirect:/login?sessionExp";
+		}
+		
+		User loggedInUser = (User) httpSession.getAttribute("loggedInUser");
+		if(loggedInUser == null) {
+			
+			return "redirect:/login?sessionExp";
+		}
+		
+		if(loggedInUser.getRole().getName().equalsIgnoreCase("ROLE_TECHNICIAN")) {
+			
+			LOGGER.info("getting test-groups by lab: " + loggedInUser.getClient().getLab().getName());
+			return "test-group/displayByLab";
+		} else {
+			
+			LOGGER.info("getting all test-groups...");
+			return "test-group/display";
+		}
+	}
+	
+	@RequestMapping(value = "/test-group/create", method = RequestMethod.GET)
+	public ModelAndView createTestGroup(HttpSession httpSession) {
+		
+		if(httpSession == null) {
+
+			return new ModelAndView("redirect:/login?sessionExp");
+		}
+
+		User loggedInUser = (User) httpSession.getAttribute("loggedInUser");
+		if(loggedInUser == null) {
+
+			return new ModelAndView("redirect:/login?sessionExp");
+		}
+		
+		LOGGER.info("getting test group create page...");
+		
+		return new ModelAndView("test-group/create")
+				.addObject("testGroup", new TestGroup())
+				.addObject("tests", getTestService().testsByLab(loggedInUser.getClient().getLab().getId()));
+	}
+	
+	@RequestMapping(value = "/test-group/update", method = RequestMethod.GET)
+	public ModelAndView updateTestGroup(@PathVariable("testGroupId")long testGroupId, HttpSession httpSession) {
+		
+		if(httpSession == null) {
+
+			return new ModelAndView("redirect:/login?sessionExp");
+		}
+
+		User loggedInUser = (User) httpSession.getAttribute("loggedInUser");
+		if(loggedInUser == null) {
+
+			return new ModelAndView("redirect:/login?sessionExp");
+		}
+		
+		LOGGER.info("getting test group update page...");
+		
+		TestGroup testGroup = getTestService().getTestGroup(testGroupId);
+		List<Test> selectedTests = getTestService().testsByTestGroup(testGroupId);
+		List<Test> allTests = getTestService().testsByLab(loggedInUser.getClient().getLab().getId());
+		
+		for(Test mainTest: allTests) {
+
+			for(Test selTest: selectedTests) {
+
+				if(mainTest.getId() == selTest.getId()) {
+					mainTest.setSelect("selected");
+				}
+			}
+		}
+		
+		return new ModelAndView("test-group/update")
+				.addObject("testGroup", testGroup)
+				.addObject("tests", getTestService().testsByLab(loggedInUser.getClient().getLab().getId()));
 	}
 
 	//Getters and setters
