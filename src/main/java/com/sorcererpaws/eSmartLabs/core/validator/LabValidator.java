@@ -120,15 +120,20 @@ public class LabValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitType", "noCode", "select unit type");
 		} else if(test.getUnitType().equals("ranges")) {
 			
-			if(test.getNormalMin() > 0.0) {
-				if(test.getNormalMax() < test.getNormalMin()) {
-					errors.rejectValue("normalMax", "noCode", "max. normal value must be greater than min. normal value.");
+			try {
+				if(Double.parseDouble(test.getNormalMin()) > 0.0) {
+					if(Double.parseDouble(test.getNormalMax()) < Double.parseDouble(test.getNormalMin())) {
+						errors.rejectValue("normalMax", "noCode", "max. normal value must be greater than min. normal value.");
+					}
+					
+					if(test.getUnitUsed().isEmpty()) {
+						ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitUsed", "noCode", "enter unit used for test");
+					}
 				}
+			} catch (NumberFormatException e) {
 				
-				if(test.getUnitUsed().isEmpty()) {
-					ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitUsed", "noCode", "enter unit used for test");
-				}
-	 		}
+				errors.rejectValue("normalMax", "noCode", "invalid range values: " + e.getMessage());
+			}
 		}
 		
 		if(test.getPrice() == 0.0) {
