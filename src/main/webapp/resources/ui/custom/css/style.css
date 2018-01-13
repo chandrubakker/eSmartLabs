@@ -303,6 +303,37 @@ body {
 	border-color: white;
 }
 
+/* ADMIN Register Page */
+.admin-register-form {
+	background-color: #000000b8;
+    top: 22rem;
+    color: white;
+    border-radius: 0px 20px 0px 20px;
+}
+
+.admin-register-form .page-header {
+	padding-bottom: 9px;
+    margin: 15px 0 20px;
+    border-bottom: 1px solid #eee;
+    max-width: 50%;
+}
+
+.admin-register-form label {
+	font-size: 18px;
+    font-weight: 500;
+}
+
+.admin-register-form button[type=submit], button[type=submit]:hover, button[type=reset], button[type=reset]:hover, button[type=reset]:focus {
+	background-color: transparent;
+    border-color: white;
+    color: white;
+    min-width: 10rem;
+}
+
+.admin-register-form input[type=text]:focus, input[type=password]:focus {
+	border-color: white;
+}
+
 /* Contact Page */
 .contact-form {
 	background-color: #000000b8;

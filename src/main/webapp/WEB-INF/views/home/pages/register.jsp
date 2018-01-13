@@ -1,199 +1,133 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib tagdir="/WEB-INF/tags/validation" prefix="validation"%>
 
-<!-- Add School Section -->
 <html>
 	<head>
-		<title>eSmartLabs: Register</title>
+	<title>eSmartLabs: SignUp</title>
 	</head>
 	<body>
 		<section>
 			<div class="container">
-				<div class="row">
-					<div
-						class="col-lg-6 col-lg-offset-3 col-md-6 col-sm-8 col-xs-12 col-sm-offset-2 col-md-offset-3">
-						<h1 class="page-header">Client registration</h1>
-						<div class="panel panel-default custom-panel">
-							<div class="panel-heading text-center">
-								<strong>enter details</strong>
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-lg-8 col-lg-offset-2 admin-register-form">
+							<h2 class="page-header">Admin SignUp</h2>
+							<div class="alert alert-success alert-white successAlert hide">
+								<p class="text-justify" style="font-size: 22px;">
+									<strong class="adminName"></strong> successfully registered.
+								</p>
+								<p class="text-justify" style="font-size: 18px;">
+									An confirmation link sent to email: <strong class="adminEmail"></strong>
+									please check and confirm.
+								</p>
+								<p class="text-justify" style="font-size: 16px;">
+									Note: In case you did not received the mail, please contact us
+									via <a href="<c:url value="/contact-us" />">Contact</a> page
+								</p>
 							</div>
-							<div class="panel-body">
-								<c:url value="#" var="register" />
-								<form:form role="form" id="client-reg" action="" method="post"
-									modelAttribute="user">
-									<div id="form-group-name" class="form-group">
-										<div>
-											<form:input path="name" class="form-control"
-												placeholder="Full Name" />
-											<div class="text-danger">
-												<form:errors path="name" />
-											</div>
-										</div>
-									</div>
-									<div id="form-group-email" class="form-group">
-										<div>
-											<form:input path="email" class="form-control"
-												placeholder="Email" />
-											<div class="text-danger">
-												<form:errors path="email" />
-											</div>
-										</div>
-									</div>
-									<div id="form-group-password" class="form-group">
-										<div>
-											<form:password path="password" class="form-control"
-												placeholder="Password" />
-											<div class="text-danger">
-												<form:errors path="password" />
-											</div>
-										</div>
-									</div>
-									<div id="form-group-confirmPassword" class="form-group">
-										<div>
-											<form:password path="confirmPassword" class="form-control"
-												placeholder="Confirm password" />
-											<div class="text-danger">
-												<form:errors path="confirmPassword" />
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<button type="button" onclick="registerClientSide();"
-											class="btn btn-success">Sign Up</button>
-										<button type="reset" class="btn btn-default">Reset</button>
-									</div>
-								</form:form>
+							<div class="alert alert-info progressAlert hide">
+								<p class="text-center">
+									<i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+								</p>
+								<p class="text-center progressText">Processing your
+									request...</p>
 							</div>
+							<br>&nbsp;
+							<c:url value="#" var="register" />
+							<form:form id="admin-reg-form" action="${register}" method="POST"
+								modelAttribute="user">
+								<form:hidden path="id" />
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="row">
+	
+											<div class="col-lg-6">
+												<div id="form-group-name" class="form-group">
+													<label class="control-label">Full Name</label>
+													<form:input path="name" id="admin-name"
+														class="form-control" placeholder="Full Name" />
+													<div class="text-danger">
+														<form:errors path="name" />
+													</div>
+												</div>
+											</div>
+	
+											<div class="col-lg-6">
+												<div id="form-group-email" class="form-group">
+													<label class="control-label">Your Email</label>
+													<form:input path="email" id="admin-email"
+														class="form-control" placeholder="Email" />
+													<div class="text-danger">
+														<form:errors path="email" />
+													</div>
+												</div>
+											</div>
+	
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="row">
+	
+											<div class="col-lg-6">
+												<div id="form-group-password" class="form-group">
+													<label class="control-label">Password</label>
+													<form:password path="password" class="form-control"
+														placeholder="Password" />
+													<div class="text-danger">
+														<form:errors path="password" />
+													</div>
+												</div>
+											</div>
+	
+											<div class="col-lg-6">
+												<div id="form-group-confirmPassword" class="form-group">
+													<label class="control-label">Confirm Password</label>
+													<form:password path="confirmPassword"
+														class="form-control" placeholder="Confirm password" />
+													<div class="text-danger">
+														<form:errors path="confirmPassword" />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+	
+									<div class="col-lg-12">
+										<div class="form-group">
+											<button type="submit" class="btn btn-success">Sign Up</button>
+											<button type="reset" class="btn btn-default">Reset</button>
+										</div>
+									</div>
+								</div>
+							</form:form>
+							<validation:CRUD_NEW validateURL="/register.json"
+								requestMethod="POST" busyMessage="creating admin account..."
+								asynch="false" callBackOnSuccess="adminRegistrationSuccessPage"
+								formId="admin-reg-form" noSubmit="1" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" data-keyboard="false"
-			data-backdrop="static">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Success</h4>
-					</div>
-					<div class="modal-body custom-name"></div>
-					<div class="modal-footer">
-						<a href="<c:url value="/login"/>" class="btn btn-default">Close</a>
-						<%-- <a href="<c:url value="/admin/faculty/add"/>"
-							class="btn btn-primary">Add More</a> --%>
-					</div>
-				</div>
-			</div>
-		</div>
-		
+	
 		<script type="text/javascript">
-			function registerServerSide() {
-		
-				var $form = $("#client-reg");
-				var postData = $form.serializeArray();
-				var formURL = "http://sorcererpaws.com/client/register?type=ePathLab";
-		
-				$.ajax({
-					url : formURL,
-					type : 'POST',
-					data : postData,
-					headers : {
-						"Access-Control-Allow-Origin" : "*"
-					},
-					beforeSend : function() {
-						$form.find('.form-group').removeClass('has-error');
-						$form.find('.form-group').removeClass('alert alert-danger');
-						$form.find('.text-danger').empty();
-					},
-					success : function(response, textStatus, jqXHR) {
-						if (response.status == 'FAIL') {
-							for (var i = 0; i < response.errorMessageList.length; i++) {
-								var item = response.errorMessageList[i];
-		
-								var fieldId = item.fieldName;
-								console.log(fieldId);
-								fieldId = fieldId.replace(/\./g, '-');
-		
-								fieldId = fieldId.replace(/\[/g, '-');
-								fieldId = fieldId.replace(/\]/g, '-');
-								console.log(fieldId);
-								var $controlGroup = $("#form-group-" + fieldId);
-		
-								//console.log(fieldId);
-								$controlGroup.addClass('has-error');
-								$controlGroup.find('.text-danger').html(item.message);
-		
-							}
-		
-						} else {
-							/* $form.unbind('submit'); */
-							registerClientSide();
-							/* return true; */
-						}
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(errorThrown);
-					}
-				});
-		
-			}
-		
-			function registerClientSide() {
-		
-				var $form = $("#client-reg");
-				var postData = $form.serializeArray();
-				var rootPath = "${pageContext.request.contextPath}";
-				var formURL = rootPath + "/register.json";
-		
-				$.ajax({
-					url : formURL,
-					type : 'POST',
-					data : postData,
-					success : function(response, textStatus, jqXHR) {
-						if (response.status == 'FAIL') {
-							for (var i = 0; i < response.errorMessageList.length; i++) {
-								var item = response.errorMessageList[i];
-		
-								var fieldId = item.fieldName;
-								console.log(fieldId);
-								fieldId = fieldId.replace(/\./g, '-');
-		
-								fieldId = fieldId.replace(/\[/g, '-');
-								fieldId = fieldId.replace(/\]/g, '-');
-								console.log(fieldId);
-								var $controlGroup = $("#form-group-" + fieldId);
-		
-								//console.log(fieldId);
-								$controlGroup.addClass('has-error');
-								$controlGroup.find('.text-danger').html(item.message);
-		
-							}
-		
-						} else {
-							/* $form.unbind('submit'); */
-							registrationSuccessPage();
-							return true;
-						}
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(errorThrown);
-					}
-				});
-			}
-		
-			function registrationSuccessPage() {
-				var name = $("#name").val();
-				$(".custom-name").text(
-						name + ' Successfully Registered. Confirm your email.')
-						.addClass("text-center");
-				$("#myModal").modal('show');
+			function adminRegistrationSuccessPage() {
+	
+				var adminName = $("#admin-name").val() ? $("#admin-name").val() : "Your account";
+				var adminEmail = $("#admin-email").val() ? $("#admin-email").val() : "Registered Email";
+	
+				$(".adminName").text(adminName);
+				$(".adminEmail").text(adminEmail);
+	
+				$(".successAlert").removeClass("hide");
+				var registerForm = document.getElementById("admin-reg-form");
+				registerForm.reset();
+				setTimeout(function() {
+					/* $(".successAlert").hide(1000, function() {
+	
+					}); */
+				}, 6000);
 			}
 		</script>
 	</body>

@@ -83,6 +83,15 @@
 				background-size: cover;
 			}
 			
+			/* Admin Register Page Background */
+			.adminRegisterPageBG {
+				background: url(<c:url value="/resources/ui/images/admin_reg.jpg" />) no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			
 			/* Contact Page Background */
 			.contactPageBG {
 				background: url(<c:url value="/resources/ui/images/contact_bg.png" />) no-repeat center center fixed;

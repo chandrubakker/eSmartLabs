@@ -239,7 +239,7 @@ public class LoginController {
 	 * @param servletRequest
 	 * @return
 	 */
-	@RequestMapping(value = "/register.json", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/register.json", method = RequestMethod.POST)
 	@ResponseBody ValidationResponse addFaculty(@ModelAttribute("appUser")User user, BindingResult errors, HttpServletResponse servletResponse, HttpServletRequest servletRequest) {
 
 		ValidationResponse response = new ValidationResponse();
@@ -290,6 +290,69 @@ public class LoginController {
 		}
 		
 		return response;
+	}*/
+	
+	@RequestMapping(value = "/register.json", method = RequestMethod.POST)
+	public ResponseEntity<ValidationResponse> createAdmin(@ModelAttribute("user")User user, BindingResult bindingResult, HttpServletRequest request) {
+		
+		ValidationResponse response = new ValidationResponse();
+		try {
+			
+			getLoginFormValidator().validate(user, bindingResult);
+			if(bindingResult.hasErrors()) {
+
+				List<FieldError> allErrors = bindingResult.getFieldErrors();
+				List<ErrorMessage> errorMesages = new ArrayList<ErrorMessage>();
+				for (FieldError objectError : allErrors) {
+					
+					errorMesages.add(new ErrorMessage(objectError.getField(), objectError.getDefaultMessage()));
+				}
+
+				response.setErrorMessageList(errorMesages);
+				response.setStatus("FAIL");
+				LOGGER.info("Error while registering user.");
+				return new ResponseEntity<ValidationResponse>(response, HttpStatus.BAD_REQUEST);
+			}else {
+				
+				Role role = new Role();
+				role.setId(new Long(1));
+				user.setRole(role);
+
+				user.setCreatedOn(new Date());	
+
+				User savedUser = getUserService().addUser(user);
+				if(savedUser.getId() != null) {
+
+					Company company = new Company();
+					company.setId(new Long(1));
+					company.setName("My Company");
+					company.setUser(user);
+
+					LOGGER.info("Creating default company profile....");
+					getCompanyService().addCompany(company);
+					LOGGER.info("... company profile created.");
+
+					boolean mailSent = true;
+					if(mailSent) {
+						
+						response.setStatus("SUCCESS");
+					}
+				} else {
+					
+					response.setStatus("FAIL");
+				}
+				
+				response.setObject(user);
+				response.setStatus("SUCCESS");
+				return new ResponseEntity<ValidationResponse>(response, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			LOGGER.info("Error while registering user: " + e.getMessage());
+			response.setStatus("FAIL");
+			return new ResponseEntity<ValidationResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+		}
 	}
 
 	/**
