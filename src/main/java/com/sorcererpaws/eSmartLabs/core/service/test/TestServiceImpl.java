@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sorcererpaws.eSmartLabs.core.dao.test.TestDao;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Test;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.TestGroup;
+import com.sorcererpaws.eSmartLabs.core.entity.respo.CustomTest;
 
 @Service
 @Transactional(readOnly = true)
@@ -48,6 +49,12 @@ public class TestServiceImpl implements TestService {
 	@Override
 	public List<Test> testsByDepartment(long departmentId) {
 		return getTestDao().testsByDepartment(departmentId);
+	}
+
+	@Override
+	public List<CustomTest> customTestsByDepartment(long departmentId) {
+		
+		return getTestDao().customTestsByDepartment(departmentId);
 	}
 
 	@Override

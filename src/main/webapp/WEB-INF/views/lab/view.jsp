@@ -6,119 +6,113 @@
 		<title>eSmartLabs: Lab Profile</title>
 	</head>
 	<body>
-		<div id="page-wrapper">
-			<div class="container-fluid">
-				<div class="row noPrint">
-					<div class="col-lg-12">
-						<h1 class="page-header">
-							Lab <small>Profile</small>
-						</h1>
-					</div>
-				</div>
-				<div class="row noPrint">
-					<div class="col-lg-12">
-						<a href="<c:url value="#"/>" class="btn btn-default btn-sm"> <i
-							class="fa fa-hand-o-left"></i> Back
-						</a>
-					</div>
-				</div>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 title-col">
+				<h1 class="page-title-one text-center">
+					Lab <small>Profile</small>
+				</h1>
+			</div>
+		</div>
+	
+		<div class="row esm-back-row">
+			<div class="col-lg-8 col-lg-offset-2 title-col">
+				<a href="#" class="btn btn-default btn-sm esm-button esm-back-btn">
+					<i class="fa fa-hand-o-left"></i> Back
+				</a>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 title-col">
 				<div class="row">
-					<div class="col-lg-6">
-						<h3 class="page-header">Lab details</h3>
-						<div class="row">
-							<div class="col-lg-3">
-								Lab Name
-							</div>
-							
-							<div class="col-lg-9">
-								${lab.name}
+					<div class="col-lg-6 view-col">
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Lab Name</div>
+							<div class="col-lg-6 view-col">${lab.name}</div>
+						</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Estd. Date</div>
+							<div class="col-lg-6 view-col">
+								<c:choose>
+									<c:when test="${not empty lab.estdDate}">
+										<fmt:formatDate value="${lab.estdDate}"
+											pattern="dd MMM, yyyy" />
+									</c:when>
+									<c:otherwise>
+										Not Available
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-3">
-								Estd. Date
-							</div>
-							<div class="col-lg-9">
-								<fmt:formatDate value="${lab.estdDate}" pattern="dd MMM, yyyy" />
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-3">
-								About Lab
-							</div>
-							<div class="col-lg-9">
-								${lab.info}
+						
+						<div class="row view-row">
+							<div class="col-lg-12 view-col esm-uline">About</div>
+							<div class="col-lg-12 view-col">
+								<c:choose>
+									<c:when test="${not empty lab.info}">
+												${lab.info}
+											</c:when>
+									<c:otherwise>
+												Not Available
+											</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
+						
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Contact Number</div>
+							<div class="col-lg-6 view-col">
+								<c:choose>
+									<c:when test="${not empty lab.address.phone}">
+										<a href="tel:${lab.address.phone}">${lab.address.phone}</a>
+									</c:when>
+									<c:otherwise>
+										Not Available
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+						
 					</div>
 					
-					<div class="col-lg-6">
-						<h3 class="page-header">Lab address</h3>
-						
-						<div class="row">
-							<div class="col-lg-3">
-								Address line
-							</div>
-							<div class="col-lg-9">
-								${lab.address.address}
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-3">
-								Locality/Area
-							</div>
-							<div class="col-lg-9">
-								${lab.address.locality}
+					<div class="col-lg-6 view-col">
+						<div class="row view-row">
+							<div class="col-lg-12 view-col esm-uline">Address line</div>
+							<div class="col-lg-12 view-col">
+								<c:choose>
+									<c:when test="${not empty lab.address.address}">
+												${lab.address.address}
+											</c:when>
+									<c:otherwise>
+												Not Available
+											</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-3">
-								City
-							</div>
-							<div class="col-lg-9">
-								${lab.address.city}
-							</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Locality</div>
+							<div class="col-lg-6 view-col">${lab.address.locality}</div>
 						</div>
-						<br>
-						<div class="row">
-							<div class="col-lg-3">
-								State
-							</div>
-							<div class="col-lg-9">
-								${lab.address.state}
-							</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">City</div>
+							<div class="col-lg-6 view-col">${lab.address.city}</div>
 						</div>
-						
-						<div class="row">
-							<div class="col-lg-3">
-								Country
-							</div>
-							<div class="col-lg-9">
-								${lab.address.country} - ${lab.address.zipCode}
-							</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">State</div>
+							<div class="col-lg-6 view-col">${lab.address.state}</div>
 						</div>
-						
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Country</div>
+							<div class="col-lg-6 view-col">${lab.address.country}-
+								${lab.address.zipCode}</div>
+						</div>
 					</div>
 				</div>
-				<!-- <div class="row">
-					<div class="col-lg-12 bg-grey">
-						<div class="clearfix location-wrap cushion-both">
-			             	<div class="col-xs-12 clear-hboth">
-				                <div class="h3 col-xs-12 col-sm-6 clear-left location">
-				                  Bengaluru
-				                </div>
-				                <div class="h3 col-xs-12 col-sm-6 text-right text-blue address">
-				                	<a href="http://maps.google.co.in/maps?q=Practo, RPS Green, 165/5, Krishna Raju Layout, JP Nagar 4th Phase, Bengaluru, Karnataka 560076">Get Directions</a>
-				                </div>
-			             	</div>
-			             	<div class="col-xs-12 clear-left text">Practo, RPS Green, 165/5, Krishna Raju Layout, JP Nagar 4th Phase, Bengaluru, Karnataka 560076</div>
-			            </div>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</body>

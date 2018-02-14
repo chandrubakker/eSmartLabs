@@ -119,6 +119,33 @@ public class TestClient {
 		return new ResponseEntity<List<CustomTest>>(customTests, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/department/{deptId}/custom-tests.json", method = RequestMethod.GET)
+	public ResponseEntity<List<CustomTest>> customTestsByDepartment(@PathVariable("deptId")long deptId) {
+		
+		List<CustomTest> customTests = getTestService().customTestsByDepartment(deptId);
+		
+		/*List<Test> tests = getTestService().testsByDepartment(deptId);
+		
+		for(Test test: tests) {
+			
+			CustomTest customTest = new CustomTest();
+			
+			customTest.setTestId(test.getId());
+			customTest.setDeptId(test.getDepartment().getId());
+			customTest.setLabId(test.getDepartment().getLab().getId());
+			
+			customTest.setTestName(test.getName());
+			customTest.setTestCode(test.getCode());
+			customTest.setDeptName(test.getDepartment().getName());
+			customTest.setPrice(test.getPrice());
+			customTest.setLabName(test.getDepartment().getLab().getName());
+			
+			customTests.add(customTest);
+		}*/
+		
+		return new ResponseEntity<List<CustomTest>>(customTests, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/test/update", method = RequestMethod.POST)
 	public ResponseEntity<ValidationResponse> createOrUpdateDept(@ModelAttribute("test")Test test, BindingResult bindingResult) {
 		ValidationResponse response = new ValidationResponse();

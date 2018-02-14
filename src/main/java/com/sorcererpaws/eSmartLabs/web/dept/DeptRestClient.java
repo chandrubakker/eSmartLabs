@@ -146,6 +146,20 @@ public class DeptRestClient {
 		}
 	}
 	
+	@RequestMapping(value = "/department/{deptId}", method = RequestMethod.GET)
+	public ResponseEntity<Department> getDept(@PathVariable("deptId")long deptId) {
+		
+		LOGGER.info("Getting dept. ID: " + deptId);
+		Department department = getDepartmentService().getDepartment(deptId);
+		if(department == null) {
+			
+			LOGGER.info("Requested dept. not found");
+			return new ResponseEntity<Department>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Department>(department, HttpStatus.OK);
+	}
+	
 	//Getters and setters
 	public DepartmentService getDepartmentService() {
 		return departmentService;

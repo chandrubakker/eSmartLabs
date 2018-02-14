@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sorcererpaws.eSmartLabs.core.entity.lab.Test;
 import com.sorcererpaws.eSmartLabs.core.entity.lab.TestGroup;
+import com.sorcererpaws.eSmartLabs.core.entity.respo.CustomTest;
 
 public interface TestDao {
 
@@ -13,6 +14,9 @@ public interface TestDao {
 	public boolean deleteTest(long testId);
 	public List<Test> testsByPatient(long patientId);
 	public List<Test> testsByDepartment(long departmentId);
+	
+	public List<CustomTest> customTestsByDepartment(long departmentId);
+	
 	public List<Test> testsByLab(long labId);
 	public List<Test> allTests();
 	public boolean isTestExists(String testCode);
