@@ -6,71 +6,110 @@
 		<title>eSmartLabs: Lab Profile</title>
 	</head>
 	<body>
-		<div id="page-wrapper">
-			<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 title-col">
+				<h1 class="page-title-one text-center">
+					Company <small>Profile</small>
+				</h1>
+			</div>
+		</div>
+	
+		<div class="row esm-back-row">
+			<div class="col-lg-8 col-lg-offset-2 title-col">
+				<a href="#" class="btn btn-default btn-sm esm-button esm-back-btn">
+					<i class="fa fa-hand-o-left"></i> Back
+				</a>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 title-col">
 				<div class="row">
-					<div class="col-lg-12">
-						<h1 class="page-header">
-							Company <small>Profile</small>
-						</h1>
+					<div class="col-lg-6 view-col">
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Company Name</div>
+							<div class="col-lg-6 view-col">${company.name}</div>
+						</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Estd. Date</div>
+							<div class="col-lg-6 view-col">
+								<c:choose>
+									<c:when test="${not empty company.estdDate}">
+										<fmt:formatDate value="${company.estdDate}"
+											pattern="dd MMM, yyyy" />
+									</c:when>
+									<c:otherwise>
+												Not Available
+											</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-12 view-col esm-uline">About</div>
+							<div class="col-lg-12 view-col">
+								<c:choose>
+									<c:when test="${not empty company.info}">
+												${company.info}
+											</c:when>
+									<c:otherwise>
+												Not Available
+											</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Contact Number</div>
+							<div class="col-lg-6 view-col">
+								<c:choose>
+									<c:when test="${not empty company.address.phone}">
+										<a href="tel:${company.address.phone}">${company.address.phone}</a>
+									</c:when>
+									<c:otherwise>
+												Not Available
+											</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<a href="<c:url value="#"/>" class="btn btn-default btn-sm"> <i
-							class="fa fa-hand-o-left"></i> Back
-						</a>
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-md-6">
-						<h3>Lab details</h3>
-						<table class="table table-responsive">
-							<tbody>
-								<tr>
-									<th>Lab Name</th>
-									<td>${company.name}</td>
-								</tr>
-								<tr>
-									<th>Estd. Date</th>
-									<td><fmt:formatDate value="${company.estdDate}"
-											pattern="dd MMM, yyyy" /></td>
-								</tr>
-								<tr>
-									<th>About company</th>
-									<td>${company.info}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-md-6">
-						<h3>Lab address</h3>
-						<table class="table table-responsive">
-							<tbody>
-								<tr>
-									<th>Address line</th>
-									<td>${company.address.address}</td>
-								</tr>
-								<tr>
-									<th>Locality/Area</th>
-									<td>${company.address.locality}</td>
-								</tr>
-								<tr>
-									<th>City</th>
-									<td>${company.address.city}</td>
-								</tr>
-								<tr>
-									<th>State</th>
-									<td>${company.address.state}</td>
-		
-								</tr>
-								<tr>
-									<th>Country</th>
-									<td>${company.address.country} - ${company.address.zipCode}</td>
-								</tr>
-							</tbody>
-						</table>
+	
+					<div class="col-lg-6 view-col">
+						<div class="row view-row">
+							<div class="col-lg-12 view-col esm-uline">Address line</div>
+							<div class="col-lg-12 view-col">
+								<c:choose>
+									<c:when test="${not empty company.address.address}">
+												${company.address.address}
+											</c:when>
+									<c:otherwise>
+												Not Available
+											</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Locality</div>
+							<div class="col-lg-6 view-col">${company.address.locality}</div>
+						</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">City</div>
+							<div class="col-lg-6 view-col">${company.address.city}</div>
+						</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">State</div>
+							<div class="col-lg-6 view-col">${company.address.state}</div>
+						</div>
+	
+						<div class="row view-row">
+							<div class="col-lg-6 view-col">Country</div>
+							<div class="col-lg-6 view-col">${company.address.country}-
+								${company.address.zipCode}</div>
+						</div>
 					</div>
 				</div>
 			</div>

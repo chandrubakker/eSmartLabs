@@ -39,7 +39,7 @@ public class Test {
 	private double price;
 	private String select;
 	
-	private boolean rangesSameForAll;
+	private boolean rangesSameForAll = true;
 	
 	private String maleMin;
 	private String maleMax;

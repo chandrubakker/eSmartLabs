@@ -2,28 +2,35 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib tagdir="/WEB-INF/tags/validation" prefix="validation"%>
 
+<!DOCTYPE html>
 <html>
 	<head>
-		<title>eSmartLabs: Create New Test</title>
+		<title>eSmartLabs: Create Test</title>
 	</head>
 	<body>
-		<div id="page-wrapper">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<h1 class="page-header">
-							Create <small>New Test</small>
-						</h1>
-					</div>
-				</div>
+		<div class="row">
+			<div class="col-lg-12 title-col">
+				<h1 class="page-title-one text-center">
+					Create <small>Test</small>
+				</h1>
+			</div>
+		</div>
 		
-				<div class="row">
-					<c:url value="#" var="createTest" />
-					<form:form role="form" action="${createTest}" method="POST"
-						modelAttribute="test" id="create-test">
-						<div class="col-lg-6 col-lg-offset-3 test_details">
-							<h3 class="custom-heading-view">Test Details</h3>
-							<form:hidden path="id" />
+		<div class="row esm-back-row">
+			<div class="col-lg-12 title-col">
+				<a href="#" class="btn btn-default btn-sm esm-button esm-back-btn">
+					<i class="fa fa-hand-o-left"></i> Back
+				</a>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<c:url value="#" var="createTest" />
+				<form:form role="form" action="${createTest}" method="POST" modelAttribute="test" id="create-test">
+					<form:hidden path="id" />
+					<div class="row">
+						<div class="col-lg-3">
 							<div id="form-group-department-id" class="form-group">
 								<label class="control-label">Select Department</label>
 								<form:select path="department.id" cssClass="form-control">
@@ -36,70 +43,66 @@
 									<form:errors path="department.id" />
 								</div>
 							</div>
-							
-							<div class="row">
-								<div class="col-lg-6">
-									<div id="form-group-name" class="form-group">
-										<label class="control-label">Test Name</label>
-										<form:input path="name" placeholder="test name"
-											cssClass="form-control" />
-										<div class="text-danger">
-											<form:errors path="name" />
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div id="form-group-code" class="form-group">
-										<label class="control-label">Test Code</label>
-										<form:input path="code" placeholder="test code"
-											cssClass="form-control" />
-										<div class="text-danger">
-											<form:errors path="code" />
-										</div>
-									</div>
-								</div>
-							</div>
-		
-							<div class="row">
-								<div class="col-lg-6">
-									<div id="form-group-price" class="form-group">
-										<label class="control-label">Test Price</label>
-										<div class="input-group">
-											<form:input path="price" placeholder="test price"
-												cssClass="form-control" aria-describedby="basic-addon2" />
-											<span class="input-group-addon" id="basic-addon2">
-												<i class="fa fa-inr" aria-hidden="true"></i>
-											</span>
-										</div>
-										<div class="text-danger">
-											<form:errors path="price" />
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-lg-6">
-									<div id="form-group-unitType" class="form-group">
-										<label class="control-label">Unit Type</label>
-										<form:select id="unit_type" path="unitType" cssClass="form-control">
-											<form:option value="">Choose Unit Type</form:option>
-											<c:forEach items="${unitTypes}" var="unitType">
-												<form:option value="${unitType.key}">${unitType.value}</form:option>
-											</c:forEach>
-										</form:select>
-										<div class="text-danger">
-											<form:errors path="unitType" />
-										</div>
-									</div>
+						</div>
+						<div class="col-lg-3">
+							<div id="form-group-name" class="form-group">
+								<label class="control-label">Test Name</label>
+								<form:input path="name" placeholder="test name"
+									cssClass="form-control" />
+								<div class="text-danger">
+									<form:errors path="name" />
 								</div>
 							</div>
 						</div>
-						
-						<div class="col-lg-6 test_ranges" style="display: none">
-							<h3 class="custom-heading-view">Reference Ranges</h3>
-							
+						<div class="col-lg-3">
+							<div id="form-group-code" class="form-group">
+								<label class="control-label">Test Code</label>
+								<form:input path="code" placeholder="test code"
+									cssClass="form-control" />
+								<div class="text-danger">
+									<form:errors path="code" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div id="form-group-price" class="form-group">
+								<label class="control-label">Test Price</label>
+								<div class="input-group">
+									<form:input path="price" placeholder="test price"
+										cssClass="form-control" aria-describedby="basic-addon2" />
+									<span class="input-group-addon" id="basic-addon2">
+										<i class="fa fa-inr" aria-hidden="true"></i>
+									</span>
+								</div>
+								<div class="text-danger">
+									<form:errors path="price" />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-4 col-lg-offset-4">
+							<div id="form-group-unitType" class="form-group">
+								<label class="control-label">Unit Type</label>
+								<form:select id="unit_type" path="unitType" cssClass="form-control">
+									<form:option value="">Choose Unit Type</form:option>
+									<c:forEach items="${unitTypes}" var="unitType">
+										<form:option value="${unitType.key}">${unitType.value}</form:option>
+									</c:forEach>
+								</form:select>
+								<div class="text-danger">
+									<form:errors path="unitType" />
+								</div>
+							</div>
+						</div>
+					</div>	
+					
+					<div class="row range-sel-row hide">
+						<div class="col-lg-8 col-lg-offset-2 deep-col">
 							<div class="row">
-								<div class="col-lg-8">
-									<div id="form-group-rangesSameForAll" style="padding-bottom: 10px;">
+								<div class="col-lg-6">
+									<div id="form-group-rangesSameForAll" class="same-range-radio">
 										<label class="control-label">Ranges Same For All?</label>
 										
 										<label class="radio-inline">
@@ -116,7 +119,7 @@
 									</div>
 								</div>
 								
-								<div class="col-lg-4">
+								<div class="col-lg-6">
 									<div id="form-group-unitUsed" class="form-group">
 										<label class="control-label">Unit</label>
 										<form:input path="unitUsed"
@@ -128,12 +131,15 @@
 									</div>
 								</div>
 							</div>
-							
+						</div>
+					</div>
+					
+					<div class="row uni-range-row hide">
+						<div class="col-lg-8 col-lg-offset-2 deep-col">
 							<div class="row">
 								<div class="col-lg-12">
-									<h3 class="custom-heading-view">For Everyone</h3>
+									<h3 class="page-title-two">Universal Ranges</h3>
 								</div>
-								
 								<div class="col-lg-6">
 									<div id="form-group-normalMin" class="form-group">
 										<label class="control-label">Min. Value</label>
@@ -156,11 +162,14 @@
 									</div>
 								</div>
 							</div>
-							
-							<!-- Male Ranges -->
+						</div>
+					</div>
+					
+					<div class="row diff-range-row hide">
+						<div class="col-lg-4 deep-col">
 							<div class="row">
 								<div class="col-lg-12">
-									<h3 class="custom-heading-view">For Male</h3>
+									<h3 class="page-title-two">Male</h3>
 								</div>
 								<div class="col-lg-6">
 									<div id="form-group-maleMin" class="form-group">
@@ -184,11 +193,13 @@
 									</div>
 								</div>
 							</div>
-							
+						</div>
+						
+						<div class="col-lg-4 deep-col">
 							<!-- Female Ranges -->
 							<div class="row">
 								<div class="col-lg-12">
-									<h3 class="custom-heading-view">For Female</h3>
+									<h3 class="page-title-two">Female</h3>
 								</div>
 								
 								<div class="col-lg-6">
@@ -213,11 +224,13 @@
 									</div>
 								</div>
 							</div>
-							
+						</div>
+						
+						<div class="col-lg-4 deep-col">
 							<!-- Children Ranges -->
 							<div class="row">
 								<div class="col-lg-12">
-									<h3 class="custom-heading-view">For Children</h3>
+									<h3 class="page-title-two">Children</h3>
 								</div>
 								<div class="col-lg-6">
 									<div id="form-group-childMin" class="form-group">
@@ -241,29 +254,29 @@
 									</div>
 								</div>
 							</div>
-							
 						</div>
 						
-						<div class="col-lg-6 col-lg-offset-3 test_buttons">
+					</div>
+					<div class="row text-center">
+						<div class="col-lg-12">
 							<div class="form-group">
-								<button type="submit" class="btn btn-success btn-sm">
+								<button type="submit" class="btn btn-success btn-sm esm-button esm-sub-btn">
 									<i class="fa fa-save"></i> Create
 								</button>
-								<button type="reset" class="btn btn-default btn-sm">
+								<button type="reset" class="btn btn-default btn-sm esm-button">
 									<i class=" fa fa-refresh "></i> Reset
 								</button>
 							</div>
 						</div>
-					</form:form>
-					<validation:CRUD validateURL="/test/update" requestMethod="POST"
-						busyMessage="creating test..." asynch="false"
+					</div>
+				</form:form>
+				<validation:CRUD validateURL="/test/update" requestMethod="POST" busyMessage="creating test..." asynch="false"
 						callBackOnSuccess="testCreationSuccess" formId="create-test"
 						noSubmit="1" />
-				</div>
 			</div>
 		</div>
 		
-		<div class="modal fade" id="lab-create-modal" tabindex="-1"
+		<div class="modal fade" id="test-create-modal" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel" data-keyboard="false"
 			data-backdrop="static">
 			<div class="modal-dialog" role="document">
@@ -281,61 +294,95 @@
 		</div>
 		
 		<script type="text/javascript">
-			
-			var size = {
-				single: "col-lg-6 col-lg-offset-3",
-				dual: "col-lg-6"
-			};
-			
+		
 			function testCreationSuccess() {
 				
 				var name = $("#name").val();
-				$(".custom-modal-body").text(name+" created successfully.");
-				$("#lab-create-modal").modal('show');
+				$(".custom-modal-body").text(name + " - Created Successfully.");
+				$("#test-create-modal").modal('show');
+			}
+		
+			function RadionButtonSelectedValueSet(name, SelectdValue) {
+			    
+				console.log("YESSING");
+				$('input[name="' + name+ '"][value="' + SelectdValue + '"]').prop('checked', true);
 			}
 			
-			$(document).ready(function(){
+			$(document).ready(function() {
 				
 				$("#unit_type").on('change', function() {
 					
+					console.log("SEL: " + this.value);
+					
+					if($('input[name=rangesSameForAll]:checked', '#create-test').val() === "No")
+						RadionButtonSelectedValueSet('rangesSameForAll', 'Yes');
+					
 					if(this.value === "ranges") {
 						
-						$(".test_details").removeClass(size.single);
-						$(".test_details").addClass(size.dual);
+						if($(".range-sel-row").hasClass('hide'))
+							$(".range-sel-row").removeClass("hide");
 						
-						$(".test_buttons").removeClass(size.single);
-						$(".test_buttons").addClass(size.dual);
+						if($(".uni-range-row").hasClass('hide'))
+							$(".uni-range-row").removeClass('hide');
 						
-						$(".test_ranges").show(1000);
+						if(!$(".diff-range-row").hasClass('hide'))
+							$(".diff-range-row").addClass('hide');
+					} else if(this.value === "neg_pos") {
+						
+						if(!$(".range-sel-row").hasClass('hide'))
+							$(".range-sel-row").addClass("hide");
+						
+						if(!$(".uni-range-row").hasClass('hide'))
+							$(".uni-range-row").addClass('hide');
+						
+						if(!$(".diff-range-row").hasClass('hide'))
+							$(".diff-range-row").addClass('hide');
 					} else {
 						
-						$(".test_ranges").hide();
+						if(!$(".range-sel-row").hasClass('hide'))
+							$(".range-sel-row").addClass("hide");
 						
-						$(".test_details").removeClass(size.dual);
-						$(".test_details").addClass(size.single);
+						if(!$(".uni-range-row").hasClass('hide'))
+							$(".uni-range-row").addClass('hide');
 						
-						$(".test_buttons").removeClass(size.dual);
-						$(".test_buttons").addClass(size.single);
+						if(!$(".diff-range-row").hasClass('hide'))
+							$(".diff-range-row").addClass('hide');
 					}
 					
-					console.log(this.value);
 				});
-				
-				var ageGroupDiv = $(".");
 				
 				$('input[type=radio][name=rangesSameForAll]').change(function() {
 			        
+					console.log("Radio Value: " + this.value);
 					if (this.value == 'Yes') {
 			            
-						console.log("Radio Value: " + this.value);
-						ageGroupDiv.hide(1000);
+						if($(".uni-range-row").hasClass('hide'))
+							$(".uni-range-row").removeClass('hide');
+						
+						if(!$(".diff-range-row").hasClass('hide'))
+							$(".diff-range-row").addClass('hide');
 			        } else if (this.value == 'No') {
 			            
-			        	console.log("Radio Value: " + this.value);
-			        	ageGroupDiv.show(1000);
+			        	if(!$(".uni-range-row").hasClass('hide'))
+							$(".uni-range-row").addClass('hide');
+						
+						if($(".diff-range-row").hasClass('hide'))
+							$(".diff-range-row").removeClass('hide');
 			        }
 			    });
+				
+				$('button[type=reset]').click(function(e) {
+					
+					if(!$(".range-sel-row").hasClass('hide'))
+						$(".range-sel-row").addClass("hide");
+					
+					if(!$(".uni-range-row").hasClass('hide'))
+						$(".uni-range-row").addClass('hide');
+					
+					if(!$(".diff-range-row").hasClass('hide'))
+						$(".diff-range-row").addClass('hide');
+				});
 			});
-		</script>
+		</script>			
 	</body>
 </html>

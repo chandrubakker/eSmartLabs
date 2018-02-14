@@ -120,19 +120,64 @@ public class LabValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitType", "noCode", "select unit type");
 		} else if(test.getUnitType().equals("ranges")) {
 			
-			try {
-				if(Double.parseDouble(test.getNormalMin()) > 0.0) {
-					if(Double.parseDouble(test.getNormalMax()) < Double.parseDouble(test.getNormalMin())) {
-						errors.rejectValue("normalMax", "noCode", "max. normal value must be greater than min. normal value.");
-					}
-					
-					if(test.getUnitUsed().isEmpty()) {
-						ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitUsed", "noCode", "enter unit used for test");
-					}
-				}
-			} catch (NumberFormatException e) {
+			if(test.isRangesSameForAll()) {
 				
-				errors.rejectValue("normalMax", "noCode", "invalid range values: " + e.getMessage());
+				if(!test.getNormalMin().isEmpty())
+					
+					try {
+						if(Double.parseDouble(test.getNormalMin()) > 0.0) {
+							if(Double.parseDouble(test.getNormalMax()) < Double.parseDouble(test.getNormalMin())) {
+								errors.rejectValue("normalMax", "noCode", "max. normal value must be greater than min. normal value.");
+							}
+						}
+					} catch (NumberFormatException e) {
+						
+						errors.rejectValue("normalMax", "noCode", "invalid range values: " + e.getMessage());
+					}
+			} else {
+				
+				if(!test.getMaleMin().isEmpty())
+					
+					try {
+						if(Double.parseDouble(test.getMaleMin()) > 0.0) {
+							if(Double.parseDouble(test.getMaleMax()) < Double.parseDouble(test.getMaleMin())) {
+								errors.rejectValue("maleMax", "noCode", "max. value must be greater than min. value.");
+							}
+						}
+					} catch (NumberFormatException e) {
+						
+						errors.rejectValue("maleMax", "noCode", "invalid range values: " + e.getMessage());
+					}
+				
+				if(!test.getFemaleMin().isEmpty())
+					
+					try {
+						if(Double.parseDouble(test.getFemaleMin()) > 0.0) {
+							if(Double.parseDouble(test.getFemaleMax()) < Double.parseDouble(test.getFemaleMin())) {
+								errors.rejectValue("femaleMax", "noCode", "max. value must be greater than min. value.");
+							}
+						}
+					} catch (NumberFormatException e) {
+						
+						errors.rejectValue("femaleMax", "noCode", "invalid range values: " + e.getMessage());
+					}
+				
+				if(!test.getChildMin().isEmpty())
+				
+					try {
+						if(Double.parseDouble(test.getChildMin()) > 0.0) {
+							if(Double.parseDouble(test.getChildMax()) < Double.parseDouble(test.getChildMin())) {
+								errors.rejectValue("childMax", "noCode", "max. value must be greater than min. value.");
+							}
+						}
+					} catch (NumberFormatException e) {
+						
+						errors.rejectValue("childMax", "noCode", "invalid range values: " + e.getMessage());
+					}
+			}
+			
+			if(test.getUnitUsed().isEmpty()) {
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "unitUsed", "noCode", "enter unit used for test");
 			}
 		}
 		
